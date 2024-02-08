@@ -59,7 +59,7 @@
 //Stepper Output pins should be P3.0-P3.3
 #define StepperTimer Timer_A3 //May decide to just make this the same as the NoteDurationTimer because then we can just set an unused compare unit to be an interrupt for stepping the stepper motor
 #define StepperPort P3
-#define StepperBitmask 0x0F //lower four bits in P3
+#define StepperBitmask 0x2D //P3 bits 0 2 3 5 our drive sequence is gonna look funky
 
 
 //For magnet switch we want to use P1.5

@@ -17,8 +17,20 @@
 //when SpeakerX is defined it should be defined with a bitmask for a pin
 
 
+void initSpeakerFreqTimer(){
+    #if
+
+    #endif
+}
+
+
+
+/*
+ *
+ */
 //TODO create initSpeaker(Port#, PinBitmask) you will need to init each speaker individually
 void initSpeaker(void * port, char PinBitmask){
+    initSpeakerFreqTimer();
 
 }
 
