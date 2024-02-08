@@ -21,12 +21,12 @@
 //when SpeakerX is defined it should be defined with a bitmask for a pin
 #include "SpeakerDriver.h"
 
-void initSpeakerFreqTimer(){
+void initSpeakerFreqTimer(){//TODO write in its entirety
 
 //    SpeakerFreqTimer->CCTL[1] = (TIMER_A0->CCTL[1]) | TIMER_A_CCTLN_OUTMOD_3; Need to set this up in a way that it will setup the CCTL of the proper CCR units
     //TODO find correct values on technical reference manual setup EX0 because we need prescale of 48
     SpeakerFreqTimer->CTL |= TIMER_A_CTL_MC_1 | TIMER_A_CTL_ID_3 | TIMER_A_CTL_TASSEL_2;//bitmask to set MC to be UP counter TASSEL to use SMCLCK prescalar 4
-    SpeakerFreqTimer->EX0
+    SpeakerFreqTimer->EX0 =
 }
 
 
@@ -35,15 +35,17 @@ void initSpeakerFreqTimer(){
  *
  */
 //TODO create initSpeaker(Port#, PinBitmask) you will need to init each speaker individually
-void initSpeaker(void * port, char PinBitmask, void * SpeakerFreqTimer){
+void initSpeaker(void * port, char PinBitmask){
 
     port->DIR |= PinBitmask;            // set pin as output
     port->SEL1 &= ~PinBitmask;          // Option 0b10 because that is where premapped Timer Outputs are
     port->SEL0 |= PinBitmask;           //
 
+    //it is the job of the caller to make sure we are in a mapped pin
+    //it is also up to them to
 }
 
-//TODO create playFrequency(Port#, PinBitmask, Freq) to enable note changing
+//TODO create playFrequency(int CCRnumber(basically must be speaker number), Freq) to enable note changing
 
 
 //TODO Create Freq ISR/ISRs if we use both CCR0 and any of the other ones
