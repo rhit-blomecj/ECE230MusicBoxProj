@@ -18,6 +18,9 @@
 
 
 //TODO create initSpeaker(Port#, PinBitmask) you will need to init each speaker individually
+void initSpeaker(void * port, char PinBitmask){
+
+}
 
 //TODO create playFrequency(Port#, PinBitmask, Freq) to enable note changing
 
