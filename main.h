@@ -20,10 +20,10 @@
 //Spearker Freq pins should be P2.4-P2.7 (corresponds to TA0.1-TA0.4)
 #define SpeakerFreqTimer Timer_A0
 #define SpeakerPort P2
-#define Speaker1 1<<4
-#define Speaker2 1<<5
-#define Speaker3 1<<6
-#define Speaker4 1<<7
+#define Speaker1 1<<7
+#define Speaker2 1<<6
+#define Speaker3 1<<5
+#define Speaker4 1<<4
 
 #define Soprano Speaker1
 #define Alto Speaker2
