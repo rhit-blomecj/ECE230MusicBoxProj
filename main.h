@@ -43,7 +43,8 @@
 //Note Duration Timer should be TimerA2
 //Note Duration Timer Pins should be P5.6 P5.7 P6.6 P6.7 corresponds to (TA2.1-TA2.4)
 #define NoteDurationTimer Timer_A2
-#define NoteDurationTimerFreq 1000000 //Hz we will set it up so this works
+#define NoteDurationPrescalar 20
+#define NoteDurationTimerFreq 32000/NoteDurationPrescalar //Hz we will set it up so this works
 
 #define HighPort P6 //interrupt out ports for Timer_A2
 #define LowPort P5
@@ -56,7 +57,7 @@
 
 //Stepper Timer should be TimerA3
 //Stepper Output pins should be P3.0-P3.3
-#define StepperTimer Timer_A3
+#define StepperTimer Timer_A3 //May decide to just make this the same as the NoteDurationTimer because then we can just set an unused compare unit to be an interrupt for stepping the stepper motor
 #define StepperPort P3
 #define StepperBitmask 0x0F //lower four bits in P3
 

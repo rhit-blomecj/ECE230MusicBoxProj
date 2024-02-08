@@ -9,6 +9,6 @@
 #define SPEAKERDRIVER_H_
 
 //TODO will need clock speed I'm setting the FreqTimer to
-//TODO we will setup LFxT as Timer A and we will have prescalar of 20
+//after prescalar SpeakerFreqClock should be 1MHz
 
 #endif /* SPEAKERDRIVER_H_ */
