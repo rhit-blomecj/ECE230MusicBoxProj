@@ -8,7 +8,6 @@
 #ifndef MAIN_H_
 #define MAIN_H_
 
-//TODO: All the ports and different port things should happen in here
 //LCDDataPort should be P4
 //LCD Control Pins P1.6 P1.7
 #define LCDDataPort P4
