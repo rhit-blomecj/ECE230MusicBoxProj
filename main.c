@@ -1,11 +1,4 @@
-#include "msp.h"
 
-#include "LCDDriver.h"
-#include "SpeakerDriver.h"
-#include "StepperDriver.h"
-#include "SpeakerDriver.h"
-#include "SwitchDriver.h"
-#include "NoteDefs.h"
 
 /**
  * TODO: Main program logic goes in this file each individual function of our drivers should be handled in their individual Driver Files

@@ -8,6 +8,15 @@
 #ifndef MAIN_H_
 #define MAIN_H_
 
+#include "msp.h"
+
+#include "LCDDriver.h"
+#include "SpeakerDriver.h"
+#include "StepperDriver.h"
+#include "SpeakerDriver.h"
+#include "SwitchDriver.h"
+#include "NoteDefs.h"
+
 //LCDDataPort should be P4
 //LCD Control Pins P1.6 P1.7
 #define LCDDataPort P4
