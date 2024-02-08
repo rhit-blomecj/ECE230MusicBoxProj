@@ -57,7 +57,7 @@
 #define MagnetSwitchPort P1
 #define MagnetSwitchPin 1<<5
 
-//TODO Save Timer A2 clockrate and stuff so we can do bpm and duration calculations
+//Save Timer A2 clockrate and stuff so we can do bpm and duration calculations
 //bpm time needs to be figured out during runtime if I want bpms that can change
 //don't calculate quarter note time calculate 1 beat time when calculating
 
