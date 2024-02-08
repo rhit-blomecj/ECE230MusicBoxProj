@@ -8,6 +8,7 @@
 #ifndef SWITCHDRIVER_H_
 #define SWITCHDRIVER_H_
 
+#include "global.h"
 
 
 #endif /* SWITCHDRIVER_H_ */

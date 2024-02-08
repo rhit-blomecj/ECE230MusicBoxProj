@@ -8,6 +8,7 @@
 #ifndef LCDDRIVER_H_
 #define LCDDRIVER_H_
 
+#include "global.h"
 
 
 #endif /* LCDDRIVER_H_ */

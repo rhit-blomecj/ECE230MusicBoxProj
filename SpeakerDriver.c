@@ -1,6 +1,10 @@
 /*
  * SpeakerDriver.c
  *
+ * You need to #define SpeakerFreqTimer as one of the A timers so we can set it up properly
+ * You need to #define SpeakerX with X being a number between 1-6 this is so we can set up the interrupt to generate its frequency
+ * This driver cannot support more than 6 speakers at a time and all speakers will be controlled by the same Timer
+ *
  *  Created on: Feb 4, 2024
  *      Author: blomecj
  */
@@ -17,10 +21,11 @@
 //when SpeakerX is defined it should be defined with a bitmask for a pin
 
 
-void initSpeakerFreqTimer(){
-    #if
+void initSpeakerFreqTimer(void * SpeakerFreqTimer){
 
-    #endif
+//    SpeakerFreqTimer->CCTL[1] = (TIMER_A0->CCTL[1]) | TIMER_A_CCTLN_OUTMOD_3; Need to set this up in a way that it will setup the CCTL of the proper CCR units
+    //TODO find correct values on technical reference manual setup EX0 because we need prescale of 48
+    SpeakerFreqTimer->CTL |= TIMER_A_CTL_MC_1 | TIMER_A_CTL_ID_3 | TIMER_A_CTL_TASSEL_2;//bitmask to set MC to be UP counter TASSEL to use SMCLCK prescalar 4
 }
 
 
@@ -29,8 +34,12 @@ void initSpeakerFreqTimer(){
  *
  */
 //TODO create initSpeaker(Port#, PinBitmask) you will need to init each speaker individually
-void initSpeaker(void * port, char PinBitmask){
-    initSpeakerFreqTimer();
+void initSpeaker(void * port, char PinBitmask, void * SpeakerFreqTimer){
+    initSpeakerFreqTimer(SpeakerFreqTimer);
+
+    port->DIR |= PinBitmask;            // set pin as output
+    port->SEL1 &= ~PinBitmask;          // Option 0b10 because that is where premapped Timer Outputs are
+    port->SEL0 |= PinBitmask;           //
 
 }
 
