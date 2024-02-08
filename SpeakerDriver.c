@@ -19,13 +19,14 @@
 //The ISRs will be in #if FreqTimer == Timer_A0 and we will just have a lot of those (probably only setup for TimerA timers and that will just need to be said in documentation)
 //#ifdef SpeakerX blocks where X corresponds to the number of the CCR unit it should be controlled by should surround cases in switch/if statement
 //when SpeakerX is defined it should be defined with a bitmask for a pin
+#include "SpeakerDriver.h"
 
-
-void initSpeakerFreqTimer(void * SpeakerFreqTimer){
+void initSpeakerFreqTimer(){
 
 //    SpeakerFreqTimer->CCTL[1] = (TIMER_A0->CCTL[1]) | TIMER_A_CCTLN_OUTMOD_3; Need to set this up in a way that it will setup the CCTL of the proper CCR units
     //TODO find correct values on technical reference manual setup EX0 because we need prescale of 48
     SpeakerFreqTimer->CTL |= TIMER_A_CTL_MC_1 | TIMER_A_CTL_ID_3 | TIMER_A_CTL_TASSEL_2;//bitmask to set MC to be UP counter TASSEL to use SMCLCK prescalar 4
+    SpeakerFreqTimer->EX0
 }
 
 
@@ -35,7 +36,6 @@ void initSpeakerFreqTimer(void * SpeakerFreqTimer){
  */
 //TODO create initSpeaker(Port#, PinBitmask) you will need to init each speaker individually
 void initSpeaker(void * port, char PinBitmask, void * SpeakerFreqTimer){
-    initSpeakerFreqTimer(SpeakerFreqTimer);
 
     port->DIR |= PinBitmask;            // set pin as output
     port->SEL1 &= ~PinBitmask;          // Option 0b10 because that is where premapped Timer Outputs are

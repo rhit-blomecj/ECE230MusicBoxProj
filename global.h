@@ -19,7 +19,7 @@
 
 //Speaker Freq Timer should be TimerA0
 //Spearker Freq pins should be P2.4-P2.7 (corresponds to TA0.1-TA0.4)
-#define SpeakerFreqTimer Timer_A0
+#define SpeakerFreqTimer TIMER_A0
 #define SpeakerPort P2
 #define Speaker1 1<<7
 #define Speaker2 1<<6
@@ -28,7 +28,7 @@
 
 //Note Duration Timer should be TimerA2
 //Note Duration Timer Pins should be P5.6 P5.7 P6.6 P6.7 corresponds to (TA2.1-TA2.4)
-#define NoteDurationTimer Timer_A2
+#define NoteDurationTimer TIMER_A2
 #define NoteDurationPrescalar 20
 #define NoteDurationTimerFreq 32000/NoteDurationPrescalar //Hz we will set it up so this works
 
@@ -42,7 +42,7 @@
 
 //Stepper Timer should be TimerA3
 //Stepper Output pins should be P3.0-P3.3
-#define StepperTimer Timer_A3 //May decide to just make this the same as the NoteDurationTimer because then we can just set an unused compare unit to be an interrupt for stepping the stepper motor
+#define StepperTimer TIMER_A3 //May decide to just make this the same as the NoteDurationTimer because then we can just set an unused compare unit to be an interrupt for stepping the stepper motor
 #define StepperPort P3
 #define StepperBitmask 0x2D //P3 bits 0 2 3 5 our drive sequence is gonna look funky
 

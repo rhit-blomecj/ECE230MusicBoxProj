@@ -4,7 +4,7 @@
  *  Created on: Feb 4, 2024
  *      Author: blomecj
  */
-
+#include "LCDDriver.h"
 
 //TODO LCDconfig(#LCDPort)
 
