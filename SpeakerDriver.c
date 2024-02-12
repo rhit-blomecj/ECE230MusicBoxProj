@@ -21,12 +21,70 @@
 //when SpeakerX is defined it should be defined with a bitmask for a pin
 #include "SpeakerDriver.h"
 
+#ifdef Speaker1
+   int Speaker1Ticks;
+#endif
+
+#ifdef Speaker2
+   int Speaker2Ticks;
+#endif
+
+#ifdef Speaker3
+   int Speaker3Ticks;
+#endif
+
+#ifdef Speaker4
+   int Speaker4Ticks;
+#endif
+
+#ifdef Speaker5
+   int Speaker5Ticks;
+#endif
+
+#ifdef Speaker6
+   int Speaker6Ticks;
+#endif
+
 void initSpeakerFreqTimer(){//TODO write in its entirety
 
 //    SpeakerFreqTimer->CCTL[1] = (TIMER_A0->CCTL[1]) | TIMER_A_CCTLN_OUTMOD_3; Need to set this up in a way that it will setup the CCTL of the proper CCR units
     //TODO find correct values on technical reference manual setup EX0 because we need prescale of 48
-    SpeakerFreqTimer->CTL |= TIMER_A_CTL_MC_1 | TIMER_A_CTL_ID_3 | TIMER_A_CTL_TASSEL_2;//bitmask to set MC to be UP counter TASSEL to use SMCLCK prescalar 4
-    SpeakerFreqTimer->EX0 =
+    //experiment with adding this I think this is the overflow flag but if other things break then I can put it back TIMER_A_CTL_IE
+    SpeakerFreqTimer->CTL = TIMER_A_CTL_MC_2 | TIMER_A_CTL_ID_3 | TIMER_A_CTL_TASSEL_2 | TIMER_A_CTL_CLR;//bitmask to set MC to be UP counter TASSEL to use SMCLCK prescalar 4
+    SpeakerFreqTimer->EX0 = TIMER_A_EX0_IDEX__6;
+
+    #ifdef Speaker1
+        SpeakerFreqTimer->CCTL[1] = TIMER_A_CCTLN_OUTMOD_4 | TIMER_A_CCTLN_CCIE;//OUTMOD TOGGLE Interupt enabled
+        Speaker1Ticks = 0;
+    #endif
+
+    #ifdef Speaker2
+        SpeakerFreqTimer->CCTL[2] = TIMER_A_CCTLN_OUTMOD_4  | TIMER_A_CCTLN_CCIE;
+        Speaker2Ticks = 0;
+    #endif
+
+    #ifdef Speaker3
+        SpeakerFreqTimer->CCTL[3] = TIMER_A_CCTLN_OUTMOD_4 | TIMER_A_CCTLN_CCIE;
+        Speaker3Ticks = 0;
+    #endif
+
+    #ifdef Speaker4
+        SpeakerFreqTimer->CCTL[4] = TIMER_A_CCTLN_OUTMOD_4 | TIMER_A_CCTLN_CCIE;
+        Speaker4Ticks = 0;
+    #endif
+
+    #ifdef Speaker5
+        SpeakerFreqTimer->CCTL[5] = TIMER_A_CCTLN_OUTMOD_4 | TIMER_A_CCTLN_CCIE;
+        Speaker5Ticks = 0;
+    #endif
+
+    #ifdef Speaker6
+        SpeakerFreqTimer->CCTL[6] = TIMER_A_CCTLN_OUTMOD_4 | TIMER_A_CCTLN_CCIE;
+        Speaker6Ticks = 0;
+    #endif
+        //this should eb good for now currently my plan is to not care about CCR[0] because it needs a separate interrupt handler
+
+        //TODO might need to add NVIC assignments I would actually have to read up on that to see if that is a global interrupt enable thing or if I need to flip one of the bits for each of the CCR units
 }
 
 
@@ -45,8 +103,39 @@ void initSpeaker(void * port, char PinBitmask){
     //it is also up to them to
 }
 
-//TODO create playFrequency(int CCRnumber(basically must be speaker number), Freq) to enable note changing
 
+int freqToTicks(float Freq){
+    //(1000000L1ticks/1sec) * (1sec/50L2ticks)
+    return (int)(SpeakerFreqClockFreq * (1/Freq));
+}
+
+//TODO create playFrequency(int CCRnumber(basically must be speaker number), Freq) to enable note changing
+void playFrequency(int SpeakNum, float Freq){
+    switch (speakNum){//TODO: add case 0 later for if we get around to setting up CCR0 support
+    case 1:
+        Speaker1 = freqToTicks(Freq);
+        break;
+    case 2:
+        Speaker2 = freqToTicks(Freq);
+        break;
+    case 3:
+        Speaker3 = freqToTicks(Freq);
+        break;
+    case 4:
+        Speaker4 = freqToTicks(Freq);
+        break;
+    case 5:
+        Speaker5 = freqToTicks(Freq);
+        break;
+    case 6:
+        Speaker6 = freqToTicks(Freq);
+        break;
+    default:
+        break;
+
+
+    }
+}
 
 //TODO Create Freq ISR/ISRs if we use both CCR0 and any of the other ones
 //ISR FLOW
@@ -54,3 +143,49 @@ void initSpeaker(void * port, char PinBitmask){
 //  clear appropriate int Flag
 //  move CCR unit up another half period
 //  return to normal program flow
+#if SpeakerFreqTimer == TIMER_A0 //check other thing later this is what we are actually using so this should be the only one that matters
+    void TA1_N_IRQHandler (void){//for playing frequencies in an IRQ will need to decide what interupt is using us then do the proper operations
+    #ifdef Speaker1
+        if(TIMER_A1->CCTL[1] & TIMER_A_CCTLN_CCIFG){
+            TIMER_A1->CCTL[1] &= ~TIMER_A_CCTLN_CCIFG;
+            TIMER_A1 -> CCR[1] += Speaker1Ticks;//add number of ticks so it will repeat freq
+        }
+    #endif
+
+    #ifdef Speaker2
+        if(TIMER_A1->CCTL[2] & TIMER_A_CCTLN_CCIFG){
+            TIMER_A1->CCTL[2] &= ~TIMER_A_CCTLN_CCIFG;
+            TIMER_A1 -> CCR[2] += Speaker2Ticks;//add number of ticks so it will repeat freq
+        }
+    #endif
+
+    #ifdef Speaker3
+        if(TIMER_A1->CCTL[3] & TIMER_A_CCTLN_CCIFG){
+            TIMER_A1->CCTL[3] &= ~TIMER_A_CCTLN_CCIFG;
+            TIMER_A1 -> CCR[3] += Speaker3Ticks;//add number of ticks so it will repeat freq
+        }
+    #endif
+
+    #ifdef Speaker4
+        if(TIMER_A1->CCTL[4] & TIMER_A_CCTLN_CCIFG){
+            TIMER_A1->CCTL[4] &= ~TIMER_A_CCTLN_CCIFG;
+            TIMER_A1 -> CCR[4] += Speaker4Ticks;//add number of ticks so it will repeat freq
+        }
+    #endif
+
+    #ifdef Speaker5
+        if(TIMER_A1->CCTL[5] & TIMER_A_CCTLN_CCIFG){
+            TIMER_A1->CCTL[5] &= ~TIMER_A_CCTLN_CCIFG;
+            TIMER_A1 -> CCR[5] += Speaker5Ticks;//add number of ticks so it will repeat freq
+        }
+    #endif
+
+    #ifdef Speaker6
+        if(TIMER_A1->CCTL[6] & TIMER_A_CCTLN_CCIFG){
+            TIMER_A1->CCTL[6] &= ~TIMER_A_CCTLN_CCIFG;
+            TIMER_A1 -> CCR[6] += Speaker6Ticks;//add number of ticks so it will repeat freq
+        }
+    #endif
+    }
+#endif
+

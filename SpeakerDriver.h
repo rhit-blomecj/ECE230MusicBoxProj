@@ -16,6 +16,7 @@
 #define SpeakerFreqClockFreq 48000000/SpeakerFreqClockPrescalar //since using our normal HFXT configuration the clock will be 48000000
 
 
+
 extern void initSpeakerFreqTimer();
 extern void initSpeaker(void * port, char PinBitmask);
 
