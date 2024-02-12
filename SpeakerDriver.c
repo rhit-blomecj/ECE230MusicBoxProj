@@ -1,4 +1,4 @@
-/*
+/* TODO more code documentation
  * SpeakerDriver.c
  *
  * You need to #define SpeakerFreqTimer as one of the A timers so we can set it up properly
@@ -47,42 +47,49 @@
 
 void initSpeakerFreqTimer(){//TODO write in its entirety
 
-//    SpeakerFreqTimer->CCTL[1] = (TIMER_A0->CCTL[1]) | TIMER_A_CCTLN_OUTMOD_3; Need to set this up in a way that it will setup the CCTL of the proper CCR units
-    //TODO find correct values on technical reference manual setup EX0 because we need prescale of 48
-    //experiment with adding this I think this is the overflow flag but if other things break then I can put it back TIMER_A_CTL_IE
-    SpeakerFreqTimer->CTL = TIMER_A_CTL_MC_2 | TIMER_A_CTL_ID_3 | TIMER_A_CTL_TASSEL_2 | TIMER_A_CTL_CLR;//bitmask to set MC to be UP counter TASSEL to use SMCLCK prescalar 4
-    SpeakerFreqTimer->EX0 = TIMER_A_EX0_IDEX__6;
-
-    #ifdef Speaker1
+#ifdef Speaker1
         SpeakerFreqTimer->CCTL[1] = TIMER_A_CCTLN_OUTMOD_4 | TIMER_A_CCTLN_CCIE;//OUTMOD TOGGLE Interupt enabled
         Speaker1Ticks = 0;
+        playFrequency(1, FrequencyG4);
     #endif
 
     #ifdef Speaker2
         SpeakerFreqTimer->CCTL[2] = TIMER_A_CCTLN_OUTMOD_4  | TIMER_A_CCTLN_CCIE;
         Speaker2Ticks = 0;
+        playFrequency(2, FrequencyE4);
     #endif
 
     #ifdef Speaker3
         SpeakerFreqTimer->CCTL[3] = TIMER_A_CCTLN_OUTMOD_4 | TIMER_A_CCTLN_CCIE;
         Speaker3Ticks = 0;
+        playFrequency(3, FrequencyC3);
     #endif
 
     #ifdef Speaker4
         SpeakerFreqTimer->CCTL[4] = TIMER_A_CCTLN_OUTMOD_4 | TIMER_A_CCTLN_CCIE;
         Speaker4Ticks = 0;
+        playFrequency(4, FrequencyG3);
     #endif
 
     #ifdef Speaker5
         SpeakerFreqTimer->CCTL[5] = TIMER_A_CCTLN_OUTMOD_4 | TIMER_A_CCTLN_CCIE;
         Speaker5Ticks = 0;
+        playFrequency(5, FrequencyE3);
     #endif
 
     #ifdef Speaker6
         SpeakerFreqTimer->CCTL[6] = TIMER_A_CCTLN_OUTMOD_4 | TIMER_A_CCTLN_CCIE;
         Speaker6Ticks = 0;
+        playFrequency(6, FrequencyC2);
     #endif
-        //this should eb good for now currently my plan is to not care about CCR[0] because it needs a separate interrupt handler
+        //this should be good for now currently my plan is to not care about CCR[0] because it needs a separate interrupt handler
+
+    // prescale of 48
+    //experiment with adding this I think this is the overflow flag but if other things break then I can put it back TIMER_A_CTL_IE
+    SpeakerFreqTimer->CTL = TIMER_A_CTL_MC_2 | TIMER_A_CTL_ID_3 | TIMER_A_CTL_TASSEL_2 | TIMER_A_CTL_CLR;//bitmask to set MC to be UP counter TASSEL to use SMCLCK prescalar 4
+    SpeakerFreqTimer->EX0 = TIMER_A_EX0_IDEX__6;
+
+
 
         //TODO might need to add NVIC assignments I would actually have to read up on that to see if that is a global interrupt enable thing or if I need to flip one of the bits for each of the CCR units
 }
@@ -106,29 +113,29 @@ void initSpeaker(void * port, char PinBitmask){
 
 int freqToTicks(float Freq){
     //(1000000L1ticks/1sec) * (1sec/50L2ticks)
-    return (int)(SpeakerFreqClockFreq * (1/Freq));
+    return (int)(SpeakerFreqClockFreq/Freq);
 }
 
 //TODO create playFrequency(int CCRnumber(basically must be speaker number), Freq) to enable note changing
 void playFrequency(int SpeakNum, float Freq){
     switch (speakNum){//TODO: add case 0 later for if we get around to setting up CCR0 support
     case 1:
-        Speaker1 = freqToTicks(Freq);
+        Speaker1Ticks = freqToTicks(Freq)/2;
         break;
     case 2:
-        Speaker2 = freqToTicks(Freq);
+        Speaker2Ticks = freqToTicks(Freq/2);
         break;
     case 3:
-        Speaker3 = freqToTicks(Freq);
+        Speaker3Ticks = freqToTicks(Freq/2);
         break;
     case 4:
-        Speaker4 = freqToTicks(Freq);
+        Speaker4Ticks = freqToTicks(Freq)/2;
         break;
     case 5:
-        Speaker5 = freqToTicks(Freq);
+        Speaker5Ticks = freqToTicks(Freq)/2;
         break;
     case 6:
-        Speaker6 = freqToTicks(Freq);
+        Speaker6Ticks = freqToTicks(Freq)/2;
         break;
     default:
         break;
