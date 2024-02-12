@@ -12,7 +12,15 @@
 void main(void)
 {
 	WDT_A->CTL = WDT_A_CTL_PW | WDT_A_CTL_HOLD;		// stop watchdog timer
-	//howdy
+	//Speaker Setup START
+	initSpeaker(SpeakerPort, Soprano);//call for all 4 speakers
+	initSpeaker(SpeakerPort, Alto);
+	initSpeaker(SpeakerPort, Tenor);
+	initSpeaker(SpeakerPort, Bass);
+
+	initSpeakerFreqTimer();
+	//Speaker Setup END
+
 }
 
 //TODO Create ISR for Note Durations

@@ -45,7 +45,7 @@
    int Speaker6Ticks;
 #endif
 
-void initSpeakerFreqTimer(){//TODO write in its entirety
+void initSpeakerFreqTimer(){//
 
 #ifdef Speaker1
         SpeakerFreqTimer->CCTL[1] = TIMER_A_CCTLN_OUTMOD_4 | TIMER_A_CCTLN_CCIE;//OUTMOD TOGGLE Interupt enabled
