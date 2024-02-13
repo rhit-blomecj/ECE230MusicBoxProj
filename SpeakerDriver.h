@@ -9,6 +9,7 @@
 #define SPEAKERDRIVER_H_
 
 #include "global.h"
+#include "csHFXT.h"
 
 //will need clock speed I'm setting the FreqTimer to
 //after prescalar SpeakerFreqClock should be 1MHz

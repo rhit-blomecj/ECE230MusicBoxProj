@@ -86,11 +86,11 @@ void initSpeakerFreqTimer(void){//
 
     // prescale of 48
     //experiment with adding this I think this is the overflow flag but if other things break then I can put it back TIMER_A_CTL_IE
-    SpeakerFreqTimer->CTL = TIMER_A_CTL_MC_2 | TIMER_A_CTL_ID_3 | TIMER_A_CTL_TASSEL_2 | TIMER_A_CTL_CLR;//bitmask to set MC to be UP counter TASSEL to use SMCLCK prescalar 4
+    SpeakerFreqTimer->CTL = TIMER_A_CTL_MC_2 | TIMER_A_CTL_ID_3 | TIMER_A_CTL_TASSEL_2 | TIMER_A_CTL_CLR | TIMER_A_CTL_IE;//bitmask to set MC to be UP counter TASSEL to use SMCLCK prescalar 4
     SpeakerFreqTimer->EX0 = TIMER_A_EX0_IDEX__6;
 
-
-
+    configHFXT();
+    NVIC->ISER[0] |= 1<<TA0_N_IRQn;//TODO generalize later
         //TODO might need to add NVIC assignments I would actually have to read up on that to see if that is a global interrupt enable thing or if I need to flip one of the bits for each of the CCR units
 }
 
@@ -169,46 +169,46 @@ void playFrequency(int SpeakNum, float Freq){
 //  return to normal program flow
 //check other thing later this is what we are actually using so this should be the only one that matters
 //#if SpeakerFreqTimer==TIMER_A0
-    void TA1_N_IRQHandler (void){//for playing frequencies in an IRQ will need to decide what interupt is using us then do the proper operations
+    void TA0_N_IRQHandler (void){//for playing frequencies in an IRQ will need to decide what interupt is using us then do the proper operations
     #ifdef Speaker1
-        if(TIMER_A1->CCTL[1] & TIMER_A_CCTLN_CCIFG){
-            TIMER_A1->CCTL[1] &= ~TIMER_A_CCTLN_CCIFG;
-            TIMER_A1 -> CCR[1] += Speaker1Ticks;//add number of ticks so it will repeat freq
+        if(SpeakerFreqTimer->CCTL[1] & TIMER_A_CCTLN_CCIFG){
+            SpeakerFreqTimer->CCTL[1] &= ~TIMER_A_CCTLN_CCIFG;
+            SpeakerFreqTimer -> CCR[1] += Speaker1Ticks;//add number of ticks so it will repeat freq
         }
     #endif
 
     #ifdef Speaker2
-        if(TIMER_A1->CCTL[2] & TIMER_A_CCTLN_CCIFG){
-            TIMER_A1->CCTL[2] &= ~TIMER_A_CCTLN_CCIFG;
-            TIMER_A1 -> CCR[2] += Speaker2Ticks;//add number of ticks so it will repeat freq
+        if(SpeakerFreqTimer->CCTL[2] & TIMER_A_CCTLN_CCIFG){
+            SpeakerFreqTimer->CCTL[2] &= ~TIMER_A_CCTLN_CCIFG;
+            SpeakerFreqTimer -> CCR[2] += Speaker2Ticks;//add number of ticks so it will repeat freq
         }
     #endif
 
     #ifdef Speaker3
-        if(TIMER_A1->CCTL[3] & TIMER_A_CCTLN_CCIFG){
-            TIMER_A1->CCTL[3] &= ~TIMER_A_CCTLN_CCIFG;
-            TIMER_A1 -> CCR[3] += Speaker3Ticks;//add number of ticks so it will repeat freq
+        if(SpeakerFreqTimer->CCTL[3] & TIMER_A_CCTLN_CCIFG){
+            SpeakerFreqTimer->CCTL[3] &= ~TIMER_A_CCTLN_CCIFG;
+            SpeakerFreqTimer -> CCR[3] += Speaker3Ticks;//add number of ticks so it will repeat freq
         }
     #endif
 
     #ifdef Speaker4
-        if(TIMER_A1->CCTL[4] & TIMER_A_CCTLN_CCIFG){
-            TIMER_A1->CCTL[4] &= ~TIMER_A_CCTLN_CCIFG;
-            TIMER_A1 -> CCR[4] += Speaker4Ticks;//add number of ticks so it will repeat freq
+        if(SpeakerFreqTimer->CCTL[4] & TIMER_A_CCTLN_CCIFG){
+            SpeakerFreqTimer->CCTL[4] &= ~TIMER_A_CCTLN_CCIFG;
+            SpeakerFreqTimer -> CCR[4] += Speaker4Ticks;//add number of ticks so it will repeat freq
         }
     #endif
 
     #ifdef Speaker5
-        if(TIMER_A1->CCTL[5] & TIMER_A_CCTLN_CCIFG){
-            TIMER_A1->CCTL[5] &= ~TIMER_A_CCTLN_CCIFG;
-            TIMER_A1 -> CCR[5] += Speaker5Ticks;//add number of ticks so it will repeat freq
+        if(SpeakerFreqTimer->CCTL[5] & TIMER_A_CCTLN_CCIFG){
+            SpeakerFreqTimer->CCTL[5] &= ~TIMER_A_CCTLN_CCIFG;
+            SpeakerFreqTimer -> CCR[5] += Speaker5Ticks;//add number of ticks so it will repeat freq
         }
     #endif
 
     #ifdef Speaker6
-        if(TIMER_A1->CCTL[6] & TIMER_A_CCTLN_CCIFG){
-            TIMER_A1->CCTL[6] &= ~TIMER_A_CCTLN_CCIFG;
-            TIMER_A1 -> CCR[6] += Speaker6Ticks;//add number of ticks so it will repeat freq
+        if(SpeakerFreqTimer->CCTL[6] & TIMER_A_CCTLN_CCIFG){
+            SpeakerFreqTimer->CCTL[6] &= ~TIMER_A_CCTLN_CCIFG;
+            SpeakerFreqTimer -> CCR[6] += Speaker6Ticks;//add number of ticks so it will repeat freq
         }
     #endif
     }

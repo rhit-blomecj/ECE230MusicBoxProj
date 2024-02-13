@@ -9,6 +9,7 @@
 #define MAIN_H_
 
 #include "global.h"
+#include "csLFXT.h"
 #include "LCDDriver.h"
 #include "SpeakerDriver.h"
 #include "StepperDriver.h"

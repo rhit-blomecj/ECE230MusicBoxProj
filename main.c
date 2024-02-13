@@ -5,6 +5,8 @@
  * main.c
  */
 #include "main.h"
+//TODO file in out maybe
+
 
 //TODO create Timerinit for Note Duration Timer
 
@@ -13,6 +15,7 @@ void main(void)
 {
 	WDT_A->CTL = WDT_A_CTL_PW | WDT_A_CTL_HOLD;		// stop watchdog timer
 	//Speaker Setup START
+
 	initSpeaker(SpeakerPort, Soprano);//call for all 4 speakers
 	initSpeaker(SpeakerPort, Alto);
 	initSpeaker(SpeakerPort, Tenor);
@@ -20,6 +23,7 @@ void main(void)
 
 	initSpeakerFreqTimer();
 	//Speaker Setup END
+	__enable_irq();                 // Enable global interrupt
 
 }
 
