@@ -45,7 +45,7 @@
    int Speaker6Ticks;
 #endif
 
-void initSpeakerFreqTimer(){//
+void initSpeakerFreqTimer(void){//
 
 #ifdef Speaker1
         SpeakerFreqTimer->CCTL[1] = TIMER_A_CCTLN_OUTMOD_4 | TIMER_A_CCTLN_CCIE;//OUTMOD TOGGLE Interupt enabled
@@ -100,7 +100,7 @@ void initSpeakerFreqTimer(){//
  *
  */
 //TODO create initSpeaker(Port#, PinBitmask) you will need to init each speaker individually
-void initSpeaker(void * port, char PinBitmask){
+void initSpeaker(DIO_PORT_Even_Interruptable_Type* port, char PinBitmask){
 
     port->DIR |= PinBitmask;            // set pin as output
     port->SEL1 &= ~PinBitmask;          // Option 0b10 because that is where premapped Timer Outputs are
@@ -118,25 +118,42 @@ int freqToTicks(float Freq){
 
 //TODO create playFrequency(int CCRnumber(basically must be speaker number), Freq) to enable note changing
 void playFrequency(int SpeakNum, float Freq){
-    switch (speakNum){//TODO: add case 0 later for if we get around to setting up CCR0 support
+    switch (SpeakNum){//TODO: add case 0 later for if we get around to setting up CCR0 support
+#ifdef Speaker1
     case 1:
         Speaker1Ticks = freqToTicks(Freq)/2;
         break;
+#endif
+
+#ifdef Speaker2
     case 2:
-        Speaker2Ticks = freqToTicks(Freq/2);
+        Speaker2Ticks = freqToTicks(Freq)/2;
         break;
+#endif
+
+#ifdef Speaker3
     case 3:
-        Speaker3Ticks = freqToTicks(Freq/2);
+        Speaker3Ticks = freqToTicks(Freq)/2;
         break;
+#endif
+
+#ifdef Speaker4
     case 4:
         Speaker4Ticks = freqToTicks(Freq)/2;
         break;
+#endif
+
+#ifdef Speaker5
     case 5:
         Speaker5Ticks = freqToTicks(Freq)/2;
         break;
+#endif
+
+#ifdef Speaker6
     case 6:
         Speaker6Ticks = freqToTicks(Freq)/2;
         break;
+#endif
     default:
         break;
 
@@ -150,7 +167,8 @@ void playFrequency(int SpeakNum, float Freq){
 //  clear appropriate int Flag
 //  move CCR unit up another half period
 //  return to normal program flow
-#if SpeakerFreqTimer == TIMER_A0 //check other thing later this is what we are actually using so this should be the only one that matters
+//check other thing later this is what we are actually using so this should be the only one that matters
+//#if SpeakerFreqTimer==TIMER_A0
     void TA1_N_IRQHandler (void){//for playing frequencies in an IRQ will need to decide what interupt is using us then do the proper operations
     #ifdef Speaker1
         if(TIMER_A1->CCTL[1] & TIMER_A_CCTLN_CCIFG){
@@ -194,5 +212,5 @@ void playFrequency(int SpeakNum, float Freq){
         }
     #endif
     }
-#endif
+//#endif
 
