@@ -86,7 +86,7 @@ void initSpeakerFreqTimer(void){//
 
     // prescale of 48
     //experiment with adding this I think this is the overflow flag but if other things break then I can put it back TIMER_A_CTL_IE
-    SpeakerFreqTimer->CTL = TIMER_A_CTL_MC_2 | TIMER_A_CTL_ID_3 | TIMER_A_CTL_TASSEL_2 | TIMER_A_CTL_CLR | TIMER_A_CTL_IE;//bitmask to set MC to be UP counter TASSEL to use SMCLCK prescalar 4
+    SpeakerFreqTimer->CTL = TIMER_A_CTL_MC_2 | TIMER_A_CTL_ID_3 | TIMER_A_CTL_TASSEL_2 | TIMER_A_CTL_CLR;//bitmask to set MC to be UP counter TASSEL to use SMCLCK prescalar 4
     SpeakerFreqTimer->EX0 = TIMER_A_EX0_IDEX__6;
 
     configHFXT();

@@ -15,6 +15,7 @@
 #include "StepperDriver.h"
 #include "SpeakerDriver.h"
 #include "SwitchDriver.h"
+#include <stdio.h>  //NULL is defined in this header file
 
 
 
