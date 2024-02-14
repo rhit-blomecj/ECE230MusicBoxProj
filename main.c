@@ -49,23 +49,53 @@ void main(void)
 
 	__enable_irq();                 // Enable global interrupt
 
+	while(1){
+	    if(boxClosed){//Box closed needs enum defined and should be public
+	        //All Timers to Stop Mode
+
+	    }
+	    if(boxOpen){//might be able to just make this an else statement
+	        //set timers back to continuous mode
+	    }
+
+//	    if(buttonPressed){ not yet decided but this might be a song switch
+//
+//	    }
+	}
+
 }
 
+int nextNote = 0;
+int onebeatticks =0;
+
+char insert_rest_soprano = 1;
+char insert_rest_alto = 1;
+char insert_rest_tenor = 1;
+char insert_rest_bass = 1;
 
 
 //TODO Create ISR for Note Durations
 void TA2_N_IRQHandler(void){
     //Soprano
     if(NoteDurationTimer->CCTL[1] & TIMER_A_CCTLN_CCIFG){
-        NoteDurationTimer->CCTL[1] &= ~TIMER_A_CCTLN_CCIFG;
+        NoteDurationTimer->CCTL[1] &= ~TIMER_A_CCTLN_CCIFG;//clear flag
 
-        if(soprano_insert_rest){
-            NoteDurationTimer->CCR[1] += NoteDuration[];
+        if(!insert_rest_soprano){//check if we need to
+            currentNote ++;
+            if(SopranoNoteDuration[currentNote] == NULL){
+                currentNote=0;
+            }
+
+            //call playNote function
+
+            NoteDurationTimer->CCR[1] += onebeatticks*SopranoNoteDuration[currentNote];//will need to do this in ticks onebeat ticks needs to be calculated based on bpm
+            insert_rest_soprano = 1;
         }
         else{
+            SpeakerPort->DIR &= ~(Soprano); //pause music (changes speaker port to input mode)
             NoteDurationTimer->CCR[1] += NoteSeparatorTicks;
+            insert_rest_soprano = 0;
         }
-
     }
 
     //Alto
