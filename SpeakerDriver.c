@@ -47,7 +47,7 @@
 
 void initSpeakerFreqTimer(void){//
 
-#ifdef Speaker1
+    #ifdef Speaker1
         SpeakerFreqTimer->CCTL[1] = TIMER_A_CCTLN_OUTMOD_4 | TIMER_A_CCTLN_CCIE;//OUTMOD TOGGLE Interupt enabled
         Speaker1Ticks = 0;
         playFrequency(Speaker1, G4);

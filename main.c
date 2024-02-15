@@ -81,7 +81,11 @@ void main(void)
 	//Speaker Setup END
 
 	NoteDurationSetup();
+	//Stepper Setup START
+	initStepperMotor(Stepper1_port, Stepper1);
 
+	initStepperTimer();
+	//Stepper Setup END
 
 	__enable_irq();                 // Enable global interrupt
 

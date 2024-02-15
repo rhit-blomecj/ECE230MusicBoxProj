@@ -6,56 +6,314 @@
  */
 #include "StepperDriver.h"
 
-const uint8_t stepperSequence[STEP_SEQ_CNT] = {0b0001, 0b0011, 0b0010, 0b0110, 0b0100, 0b1100, 0b1000, 0b1001};
-uint16_t stepPeriod = INIT_PERIOD;//init period will be set to whatever BPM of the song is and step Period will be updated to whatever matches with bpm
-uint8_t currentStep = 0;
+#ifdef Stepper1
+uint8_t stepper1Sequence[STEP_SEQ_CNT] = {Stepper1_pin1, Stepper1_pin2, Stepper1_pin3, Stepper1_pin4};//TODO find a way to make this dependent on stepper bitmask
+uint16_t stepper1Period = 48;//init period will be set to whatever BPM of the song is and step Period will be updated to whatever matches with bpm
+uint8_t stepper1CurrentStep = 0;
+#endif
 
-void initStepperMotor(void) {//TODO maybe edit so this takes inputs and we can have multiple Steppers setup but we will just be fine with this for now
-    StepperPort->SEL0 &= ~StepperBitmask;
-    StepperPort->SEL1 &= ~StepperBitmask;
-    StepperPort->DIR |= StepperBitmask;
+#ifdef Stepper2
+uint8_t stepper2Sequence[STEP_SEQ_CNT] = {Stepper2_pin1, Stepper2_pin2, Stepper2_pin3, Stepper2_pin4};//TODO find a way to make this dependent on stepper bitmask
+uint16_t stepper2Period = 48;//init period will be set to whatever BPM of the song is and step Period will be updated to whatever matches with bpm
+uint8_t stepper2CurrentStep = 0;
+#endif
 
-    StepperPort->OUT &= ~StepperBitmask;//this initializes us to all zeroes in our step sequence this may or may not be correct
+#ifdef Stepper3
+uint8_t stepper3Sequence[STEP_SEQ_CNT] = {Stepper3_pin1, Stepper3_pin2, Stepper3_pin3, Stepper3_pin4};//TODO find a way to make this dependent on stepper bitmask
+uint16_t stepper3Period = 48;//init period will be set to whatever BPM of the song is and step Period will be updated to whatever matches with bpm
+uint8_t stepper3CurrentStep = 0;
+#endif
 
-    StepperTimer->CCR //TODO setup the stepper CCR registers and CCTL registers
-    StepperTimer->CCTL //I want to do Continuous mode and move the
+#ifdef Stepper4
+uint8_t stepper4Sequence[STEP_SEQ_CNT] = {Stepper4_pin1, Stepper4_pin2, Stepper4_pin3, Stepper4_pin4};//TODO find a way to make this dependent on stepper bitmask
+uint16_t stepper4Period = 48;//init period will be set to whatever BPM of the song is and step Period will be updated to whatever matches with bpm
+uint8_t stepper4CurrentStep = 0;
+#endif
 
-    StepperTimer->CTL //TODO setup source clocks and all that since I want this to match up with bpm then maybe we set this up to be with the same source clock
-    StepperTimer->EX0 //again will probably setup to mimic note duration timer and follow how it does its stuff might scale it differently so it doesn't appear like this is spinning a lot slower
+#ifdef Stepper5
+uint8_t stepper5Sequence[STEP_SEQ_CNT] = {Stepper5_pin1, Stepper5_pin2, Stepper5_pin3, Stepper5_pin4};//TODO find a way to make this dependent on stepper bitmask
+uint16_t stepper5Period = 48;//init period will be set to whatever BPM of the song is and step Period will be updated to whatever matches with bpm
+uint8_t stepper5CurrentStep = 0;
+#endif
 
-    NVIC->ISER[0] |= (1 << TA3_0_IRQn); //TODO change this if I want it to interrupt on different CCR unit intervals but htis enables interrupts
+#ifdef Stepper6
+uint8_t stepper6Sequence[STEP_SEQ_CNT] = {Stepper6_pin1, Stepper6_pin2, Stepper6_pin3, Stepper6_pin4};//TODO find a way to make this dependent on stepper bitmask
+uint16_t stepper6Period = 48;//init period will be set to whatever BPM of the song is and step Period will be updated to whatever matches with bpm
+uint8_t stepper6CurrentStep = 0;
+#endif
+
+void initStepperTimer(void){
+
+    #ifdef Stepper1
+        StepperTimer->CCTL[1] = TIMER_A_CCTLN_CCIE;//Interupt enabled
+        StepperTimer->CCR[1] = stepper1Period;//TODO setup the stepper CCR registers and CCTL registers
+    #endif
+
+    #ifdef Stepper2
+        StepperTimer->CCTL[2] = TIMER_A_CCTLN_CCIE;
+        StepperTimer->CCR[2] = stepper2Period;
+    #endif
+
+    #ifdef Stepper3
+        StepperTimer->CCTL[3] = TIMER_A_CCTLN_CCIE;
+        StepperTimer->CCR[3] = stepper3Period;
+    #endif
+
+    #ifdef Stepper4
+        StepperTimer->CCTL[4] = TIMER_A_CCTLN_CCIE;
+        StepperTimer->CCR[4] = stepper4Period;
+    #endif
+
+    #ifdef Stepper5
+        StepperTimer->CCTL[5] = TIMER_A_CCTLN_CCIE;
+        StepperTimer->CCR[5] = stepper5Period;
+    #endif
+
+    #ifdef Stepper6
+        StepperTimer->CCTL[6] = TIMER_A_CCTLN_CCIE;
+        StepperTimer->CCR[6] = stepper6Period;
+    #endif
+
+
+
+
+
+
+    StepperTimer->CTL = TIMER_A_CTL_MC_2 | TIMER_A_CTL_TASSEL_1 | TIMER_A_CTL_CLR;//continuous using ACLK
+    //TODO setup source clocks and all that since I want this to match up with bpm then maybe we set this up to be with the same source clock
+    StepperTimer->EX0 = 0; //prescale of one
+
+    NVIC->ISER[0] |= (1 << TA3_N_IRQn); //TODO change this if I want it to interrupt on different CCR unit intervals but htis enables interrupts
+
+
 }
 
-void enableStepperMotor(void) {
-    //TODO I may want it in continuous mode still undecided
-    // configure Timer_A3 in Up Mode (leaving remaining configuration unchanged)
-    TIMER_A3->CTL |= ;
-    TIMER_A3->CTL &= ;
+void initStepperMotor(DIO_PORT_Odd_Interruptable_Type* port, int stepperMask) {//TODO maybe edit so this takes inputs and we can have multiple Steppers setup but we will just be fine with this for now
+    port->SEL0 &= ~stepperMask;
+    port->SEL1 &= ~stepperMask;
+    port->DIR |= stepperMask;
+
+    port->OUT &= ~stepperMask;//this initializes us to all zeroes in our step sequence this may or may not be correct
 }
 
-void disableStepperMotor(void) {
-    //  Configure Timer_A3 in Stop Mode (leaving remaining configuration unchanged)
-    //TODO set this up to use the defined bitmasks form msp drivers
-    TIMER_A3->CTL &= 0xFFCD;//clr both mode bits
+void enableStepperMotor(DIO_PORT_Odd_Interruptable_Type* port, int stepperMask) {
+    // configure the specific
+
+   switch (stepperMask){//TODO: add case 0 later for if we get around to setting up CCR0 support
+   #ifdef Stepper1
+       case Stepper1:
+           StepperTimer->CCTL[1] |= TIMER_A_CCTLN_CCIE;//enable interrupts vs disable interupts
+           stepper1CurrentStep = 0;
+           port->OUT = (port->OUT & ~stepperMask) | stepper1Sequence[stepper1CurrentStep];//clear its outs so we can set the stepper sequence on a clean slate
+           break;
+   #endif
+
+   #ifdef Stepper2
+       case Stepper2:
+           StepperTimer->CCTL[2] |= TIMER_A_CCTLN_CCIE;
+           stepper2CurrentStep = 0;
+           port->OUT = (port->OUT & ~stepperMask) | stepper2Sequence[stepper2CurrentStep];
+           break;
+   #endif
+
+   #ifdef Stepper3
+       case Stepper3:
+           StepperTimer->CCTL[3] |= TIMER_A_CCTLN_CCIE;
+           stepper3CurrentStep = 0;
+           port->OUT = (port->OUT & ~stepperMask) | stepper3Sequence[stepper3CurrentStep];
+           break;
+   #endif
+
+   #ifdef Stepper4
+       case Stepper4:
+           StepperTimer->CCTL[4] |= TIMER_A_CCTLN_CCIE;
+           stepper4CurrentStep = 0;
+           port->OUT = (port->OUT & ~stepperMask) | stepper4Sequence[stepper4CurrentStep];
+           break;
+   #endif
+
+   #ifdef Stepper5
+       case Stepper5:
+           StepperTimer->CCTL[5] |= TIMER_A_CCTLN_CCIE;
+           stepper5CurrentStep = 0;
+           port->OUT = (port->OUT & ~stepperMask) | stepper5Sequence[stepper5CurrentStep];
+           break;
+   #endif
+
+   #ifdef Stepper6
+       case Stepper6:
+           StepperTimer->CCTL[6] |= TIMER_A_CCTLN_CCIE;
+           stepper6CurrentStep = 0;
+           port->OUT = (port->OUT & ~stepperMask) | stepper6Sequence[stepper6CurrentStep];
+           break;
+   #endif
+
+       default:
+           break;
+       }
+
+
 }
 
-void step(void) {
-    currentStep = (currentStep + 1) % STEP_SEQ_CNT;  // increment to next step position
-//    if(currentStep == 255){//TODO I want to revisit my logic here I remember it had to do with overflow but still somehting I want to think about
-//        currentStep = STEP_SEQ_CNT + 1;
-//    }
-    // update output port for current step pattern
-    StepperPort->OUT = (StepperPort->OUT & ~StepperBitmask) | (stepperSequence[currentStep] << 4);//TODO check if this is now accurate to rotate Stepper
+void disableStepperMotor(DIO_PORT_Odd_Interruptable_Type* port, int stepperMask) {
+
+    switch (stepperMask){//TODO: add case 0 later for if we get around to setting up CCR0 support
+    #ifdef Stepper1
+        case Stepper1:
+            StepperTimer->CCTL[1] &= ~TIMER_A_CCTLN_CCIE;//enable interrupts vs disable interupts
+            break;
+    #endif
+
+    #ifdef Stepper2
+        case Stepper2:
+            StepperTimer->CCTL[2] &= ~TIMER_A_CCTLN_CCIE;
+            break;
+    #endif
+
+    #ifdef Stepper3
+        case Stepper3:
+            StepperTimer->CCTL[3] &= ~TIMER_A_CCTLN_CCIE;
+            break;
+    #endif
+
+    #ifdef Stepper4
+        case Stepper4:
+            StepperTimer->CCTL[4] &= ~TIMER_A_CCTLN_CCIE;
+            break;
+    #endif
+
+    #ifdef Stepper5
+        case Stepper5:
+            StepperTimer->CCTL[5] &= ~TIMER_A_CCTLN_CCIE;
+            break;
+    #endif
+
+    #ifdef Stepper6
+        case Stepper6:
+            StepperTimer->CCTL[6] &= ~TIMER_A_CCTLN_CCIE;
+            break;
+    #endif
+        default:
+            break;
+
+
+        }
+
+    port->OUT &= ~stepperMask;//clear its outs so we aren't holding a position for no reason
+
+}
+
+void step(DIO_PORT_Odd_Interruptable_Type* port, int stepperMask) {
+
+    switch (stepperMask){//TODO: add case 0 later for if we get around to setting up CCR0 support
+    #ifdef Stepper1
+        case Stepper1:
+            StepperTimer->CCTL[1] |= TIMER_A_CCTLN_CCIE;//enable interrupts vs disable interupts
+            stepper1CurrentStep = (stepper1CurrentStep + 1) % STEP_SEQ_CNT;
+            port->OUT = (port->OUT & ~stepperMask) | stepper1Sequence[stepper1CurrentStep];//clear its outs so we can set the stepper sequence on a clean slate
+            break;
+    #endif
+
+    #ifdef Stepper2
+        case Stepper2:
+            StepperTimer->CCTL[2] |= TIMER_A_CCTLN_CCIE;
+            stepper2CurrentStep = (stepper2CurrentStep + 1) % STEP_SEQ_CNT;
+            port->OUT = (port->OUT & ~stepperMask) | stepper2Sequence[stepper2CurrentStep];
+            break;
+    #endif
+
+    #ifdef Stepper3
+        case Stepper3:
+            StepperTimer->CCTL[3] |= TIMER_A_CCTLN_CCIE;
+            stepper3CurrentStep = (stepper3CurrentStep + 1) % STEP_SEQ_CNT;
+            port->OUT = (port->OUT & ~stepperMask) | stepper3Sequence[stepper3CurrentStep];
+            break;
+    #endif
+
+    #ifdef Stepper4
+        case Stepper4:
+            StepperTimer->CCTL[4] |= TIMER_A_CCTLN_CCIE;
+            stepper4CurrentStep = (stepper4CurrentStep + 1) % STEP_SEQ_CNT;
+            port->OUT = (port->OUT & ~stepperMask) | stepper4Sequence[stepper4CurrentStep];
+            break;
+    #endif
+
+    #ifdef Stepper5
+        case Stepper5:
+            StepperTimer->CCTL[5] |= TIMER_A_CCTLN_CCIE;
+            stepper5CurrentStep = (stepper5CurrentStep + 1) % STEP_SEQ_CNT;
+            port->OUT = (port->OUT & ~stepperMask) | stepper5Sequence[stepper5CurrentStep];
+            break;
+    #endif
+
+    #ifdef Stepper6
+        case Stepper6:
+            StepperTimer->CCTL[6] |= TIMER_A_CCTLN_CCIE;
+            stepper6CurrentStep = (stepper6CurrentStep + 1) % STEP_SEQ_CNT;
+            port->OUT = (port->OUT & ~stepperMask) | stepper6Sequence[stepper6CurrentStep];
+            break;
+    #endif
+
+        default:
+            break;
+        }
+
+
+
+
+
+
 }
 
 // Timer A3 CCR0 interrupt service routine
-void TA3_0_IRQHandler(void)//TODO if I want to use the n handler change this
+void TA3_N_IRQHandler(void)//TODO if I want to use the n handler change this
 {
 
-    //Clear flag
-       TIMER_A3->CCTL[0] &= ~(0x0001);//TODO use msp bitmasks
+    #ifdef Stepper1
+        if(StepperTimer->CCTL[1] & TIMER_A_CCTLN_CCIFG){
+            StepperTimer->CCTL[1] &= ~TIMER_A_CCTLN_CCIFG;
+            StepperTimer -> CCR[1] += stepper1Period;//add number of ticks so it will repeat freq
+            step(Stepper1_port, Stepper1);//technically this is not generalized in the way I was aiming for but I'll work on that if I have time at the end of the project
+        }
+    #endif
 
-        step();//only going to be using this feature so I don't need to think about clockwise vs counterclockwise
+    #ifdef Stepper2
+        if(StepperTimer->CCTL[2] & TIMER_A_CCTLN_CCIFG){
+            StepperTimer->CCTL[2] &= ~TIMER_A_CCTLN_CCIFG;
+            StepperTimer -> CCR[2] += stepper2Period;//add number of ticks so it will repeat freq
+            step(Stepper2_port, Stepper2);
+        }
+    #endif
 
+    #ifdef Stepper3
+        if(StepperFreqTimer->CCTL[3] & TIMER_A_CCTLN_CCIFG){
+            StepperTimer->CCTL[3] &= ~TIMER_A_CCTLN_CCIFG;
+            StepperTimer -> CCR[3] += stepper3Period;//add number of ticks so it will repeat freq
+            step(Stepper3_port, Stepper3);
+        }
+    #endif
 
-}
+    #ifdef Stepper4
+        if(StepperTimer->CCTL[4] & TIMER_A_CCTLN_CCIFG){
+            StepperTimer->CCTL[4] &= ~TIMER_A_CCTLN_CCIFG;
+            StepperTimer -> CCR[4] += stepper4Period;//add number of ticks so it will repeat freq
+            step(Stepper4_port, Stepper4);
+        }
+    #endif
+
+    #ifdef Stepper5
+        if(StepperTimer->CCTL[5] & TIMER_A_CCTLN_CCIFG){
+            StepperTimer->CCTL[5] &= ~TIMER_A_CCTLN_CCIFG;
+            StepperTimer -> CCR[5] += stepper5Period;//add number of ticks so it will repeat freq
+            step(Stepper5_port, Stepper5);
+        }
+    #endif
+
+    #ifdef Stepper6
+        if(StepperTimer->CCTL[6] & TIMER_A_CCTLN_CCIFG){
+            StepperTimer->CCTL[6] &= ~TIMER_A_CCTLN_CCIFG;
+            StepperTimer -> CCR[6] += stepper6Period;//add number of ticks so it will repeat freq
+            step(Stepper6_port, Stepper6);
+        }
+    #endif
+    }
