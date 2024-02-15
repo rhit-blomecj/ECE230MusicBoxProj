@@ -50,37 +50,37 @@ void initSpeakerFreqTimer(void){//
 #ifdef Speaker1
         SpeakerFreqTimer->CCTL[1] = TIMER_A_CCTLN_OUTMOD_4 | TIMER_A_CCTLN_CCIE;//OUTMOD TOGGLE Interupt enabled
         Speaker1Ticks = 0;
-        playFrequency(1, FrequencyG4);
+        playFrequency(Speaker1, G4);
     #endif
 
     #ifdef Speaker2
         SpeakerFreqTimer->CCTL[2] = TIMER_A_CCTLN_OUTMOD_4  | TIMER_A_CCTLN_CCIE;
         Speaker2Ticks = 0;
-        playFrequency(2, FrequencyE4);
+        playFrequency(Speaker2, E4);
     #endif
 
     #ifdef Speaker3
         SpeakerFreqTimer->CCTL[3] = TIMER_A_CCTLN_OUTMOD_4 | TIMER_A_CCTLN_CCIE;
         Speaker3Ticks = 0;
-        playFrequency(3, FrequencyC3);
+        playFrequency(Speaker3, C3);
     #endif
 
     #ifdef Speaker4
         SpeakerFreqTimer->CCTL[4] = TIMER_A_CCTLN_OUTMOD_4 | TIMER_A_CCTLN_CCIE;
         Speaker4Ticks = 0;
-        playFrequency(4, FrequencyG3);
+        playFrequency(Speaker4, G3);
     #endif
 
     #ifdef Speaker5
         SpeakerFreqTimer->CCTL[5] = TIMER_A_CCTLN_OUTMOD_4 | TIMER_A_CCTLN_CCIE;
         Speaker5Ticks = 0;
-        playFrequency(5, FrequencyE3);
+        playFrequency(Speaker5, E3);
     #endif
 
     #ifdef Speaker6
         SpeakerFreqTimer->CCTL[6] = TIMER_A_CCTLN_OUTMOD_4 | TIMER_A_CCTLN_CCIE;
         Speaker6Ticks = 0;
-        playFrequency(6, FrequencyC2);
+        playFrequency(Speaker6, C2);
     #endif
         //this should be good for now currently my plan is to not care about CCR[0] because it needs a separate interrupt handler
 
@@ -120,37 +120,37 @@ int freqToTicks(float Freq){
 void playFrequency(int SpeakNum, float Freq){
     switch (SpeakNum){//TODO: add case 0 later for if we get around to setting up CCR0 support
 #ifdef Speaker1
-    case 1:
+    case Speaker1:
         Speaker1Ticks = freqToTicks(Freq)/2;
         break;
 #endif
 
 #ifdef Speaker2
-    case 2:
+    case Speaker2:
         Speaker2Ticks = freqToTicks(Freq)/2;
         break;
 #endif
 
 #ifdef Speaker3
-    case 3:
+    case Speaker3:
         Speaker3Ticks = freqToTicks(Freq)/2;
         break;
 #endif
 
 #ifdef Speaker4
-    case 4:
+    case Speaker4:
         Speaker4Ticks = freqToTicks(Freq)/2;
         break;
 #endif
 
 #ifdef Speaker5
-    case 5:
+    case Speaker5:
         Speaker5Ticks = freqToTicks(Freq)/2;
         break;
 #endif
 
 #ifdef Speaker6
-    case 6:
+    case Speaker6:
         Speaker6Ticks = freqToTicks(Freq)/2;
         break;
 #endif

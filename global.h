@@ -22,17 +22,17 @@
 //Spearker Freq pins should be P2.4-P2.7 (corresponds to TA0.1-TA0.4)
 #define SpeakerFreqTimer TIMER_A0
 #define SpeakerPort P2
-#define Speaker1 1<<7
-#define Speaker2 1<<6
-#define Speaker3 1<<5
-#define Speaker4 1<<4
+#define Speaker4 1<<7 //port2.7 TimerOut4
+#define Speaker3 1<<6 //port2.6 TimerOut3
+#define Speaker2 1<<5 //port2.5 TimerOut2
+#define Speaker1 1<<4 //port2.4 TimerOut1
 
 //Note Duration Timer should be TimerA2
 //Note Duration Timer Pins should be P5.6 P5.7 P6.6 P6.7 corresponds to (TA2.1-TA2.4)
 #define NoteDurationTimer TIMER_A2
 #define NoteDurationPrescalar 20
 #define NoteDurationTimerFreq 32768/NoteDurationPrescalar //Hz we will set it up so this works
-#define NoteSeparatorTicks 3
+#define NoteSeparatorTicks 15
 //#define HighPort P6 //interrupt out ports for Timer_A2
 //#define LowPort P5
 //#define Speaker1Dur 1<<7 //Shouldn't need because it is out bits of something that is only relevant in software

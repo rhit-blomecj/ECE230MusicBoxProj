@@ -20,15 +20,13 @@
 
 
 
-#define Soprano Speaker1
-#define Alto Speaker2
-#define Tenor Speaker3
-#define Bass Speaker4
+#define Soprano Speaker4//
+#define Alto Speaker3
+#define Tenor Speaker2
+#define Bass Speaker1
 
-#define SopranoDur Speaker1Dur
-#define AltoDur Speaker2Dur
-#define TenorDur Speaker3Dur
-#define BassDur Speaker4Dur
 
+typedef enum _SwitchState {NotPressed, Pressed} SwitchState;
+typedef enum _BoxState {Closed, Open} BoxState;//box enum
 
 #endif /* MAIN_H_ */
