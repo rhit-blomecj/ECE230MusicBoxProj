@@ -1,0 +1,38 @@
+Title = "Imperial March";
+
+Artist = "John Williams & Rodrigo Prado";
+
+*(ImpMarch.SopranoNotes)= {
+R,
+R,
+G4, G4, G4, DS4, C5,
+G4, DS4, C5, G4,
+D5, D5, D5, DS5, AS4,
+FS4, DS4, AS4, G4,
+G5, G4, G4, G5, FS5, F5,
+E5, DS5, E5, R, GS4, CS5, C5, B4,
+AS4, A4, AS4, R, DS4, FS4, DS4, FS4,
+AS4, G4, AS4, D5,
+G5, G4, G4, G5, FS5, F5,
+E5, DS5, E5, R, GS4, CS5, C5, B4,
+AS4, A4, AS4, R, DS4, FS4, DS4, AS4,
+//Top of page 3
+G4, DS4, AS4, G4,
+G4, R, G4, G4, G4, G4, G4, G4, G4, G4, AS4, AS4, AS4, AS4, 
+G4, R, G4, G4, G4, G4, G4, G4, G4, G4, AS4, AS4, AS4, AS4, 
+G4, R, G4, G4, G4, G4, G4, G4, G4, G4, AS4, AS4, AS4, AS4,
+G4, R, G4, G4, G4, G4, G4, G4, G4, G4, AS4, AS4, AS4, AS4,
+G4, R, G4, G4, G4, G4, G4, G4, G4, G4, AS4, AS4, AS4, AS4,
+G4, R, G4, G4, G4, G4, G4, G4, G4, G4, AS4, AS4, AS4, AS4,
+D5,R, D4, D4, D4, D4, D4, D4, D4, D4, D4, D4, D4, D4, 
+GS4, R, GS4, GS4, GS4, GS4, GS4, GS4, GS4, GS4, GS4, GS4, GS4, GS4, 
+//Top of Page 4
+AS4, R, AS4, AS4, AS4, AS4, AS4, AS4, AS4, AS4, AS4, AS4, AS4, AS4, 
+D5, R, D5, D5, D5, D5, D5, D5, D5, D5, D5, D5, D5, D5, 
+AS4, R, AS4, AS4, AS4, AS4, D5, D5, D5, D5, D5, D5, D5, D5, 
+GS4, R, GS4, GS4, GS4, GS4, GS4, GS4, GS4, GS4, GS4, GS4, GS4, GS4, 
+AS4, R, AS4, AS4, AS4, AS4, AS4, AS4, AS4, AS4, AS4, AS4, AS4, AS4, 
+D5, R, AS4, AS4, AS4, AS4, D5, D5, D5, D5, D5, D5, D5, D5, 
+G4, G4, G4 , G4, E4, E4, E4, AS4, G4, G4, G4 , G4, E4, E4, E4, AS4, 
+G4, G4, G4, G4, DS4, DS4, DS4, AS4, G4, G3, G3, G3, G3, R,
+NULL}
