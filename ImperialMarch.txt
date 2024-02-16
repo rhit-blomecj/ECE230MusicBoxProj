@@ -76,5 +76,74 @@ ImpMarch.SopranoDurations= {
 NULL};
 
 
+ImpMarch.AltoNotes= {
+G3, R, G3, G3, G3, G3, G3, G3, G3, G3, AS3, AS3, AS3, AS3, 
+G3, R, G3, G3, G3, G3, G3, G3, G3, G3, AS3, AS3, AS3, AS3, 
+G3, R, G3, G3, G3, G3, G3, G3, G3, G3, AS3, AS3, AS3, AS3, 
+G3, R, G3, G3, G3, G3, G3, G3, G3, G3, AS3, AS3, AS3, AS3, 
+G3, R, G3, G3, G3, G3, G3, G3, G3, G3, AS3, AS3, AS3, AS3, 
+//Top of Page 2
+D4, R, D4, D4, D4, D4, D4, D4, D4, D4, D4, D4, D4, D4, 
+GS3, R, GS3, GS3, GS3, GS3, GS3, GS3, GS3, GS3, GS3, GS3, GS3, GS3, 
+AS3, R, AS3, AS3, AS3, AS3, AS3, AS3, AS3, AS3, AS3, AS3, AS3, AS3, 
+D4, R, D4, D4, D4, D4, D4, D4, D4, D4, D4, D4, D4, D4, 
+B3, R, B3, B3, B3, B3, D4, D4, D4, D4, D4, D4, D4, D4, 
+GS3, R, GS3, GS3, GS3, GS3, GS3, GS3, GS3, GS3, GS3, GS3, GS3, GS3, 
+AS3, R, AS3, AS3, AS3, AS3, AS3, AS3, AS3, AS3, AS3, AS3, AS3, AS3, 
+//Top of Page 3
+D4, R, AS3, AS3, AS3, AS3, D4, D4, D4, D4, D4, D4, D4, D4, 
+G4, R, G4, G4, G4, G4, G4, G4, G4, G4, G4, G4, G4, G4, 
+G4, R, G4, G4, G4, G4, G4, G4, G4, G4, G4, G4, G4, G4, 
+G4, R, G4, G4, G4, G4, G4, G4, G4, G4, G4, G4, G4, G4, 
+G4, R, G4, G4, G4, G4, G4, G4, G4, G4, G4, G4, G4, G4, 
+G4, R, G4, G4, G4, G4, G4, G4, G4, G4, G4, G4, G4, G4, 
+G4, R, G4, G4, G4, G4, G4, G4, G4, G4, G4, G4, G4, G4, 
+AS4, R, AS4, AS4, AS4, AS4, AS4, AS4, AS4, AS4, AS4, AS4, AS4, AS4, 
+F4, R, F4, F4, F4, F4, F4, F4, F4, F4, F4, F4, F4, F4, 
+//Top of Page 4
+G4, R, G4, G4, G4, G4, G4, G4, G4, G4, G4, G4, G4, G4, 
+AS4, R, AS4, AS4, AS4, AS4, AS4, AS4, AS4, AS4, AS4, AS4, AS4, AS4, 
+G4, R, G4, G4, G4, G4, AS4, AS4, AS4, AS4, AS4, AS4, AS4, AS4,
+F4, R, F4, F4, F4, F4, F4, F4, F4, F4, F4, F4, F4, F4, 
+G4, R, G4, G4, G4, G4, G4, G4, G4, G4, G4, G4, G4, G4, 
+AS4, R, G4, G4, G4, G4, AS4, AS4, AS4, AS4, AS4, AS4, AS4, AS4, 
+G3, G3, G3, G3, G3, G3, G3, G3, G3, G3, G3, G3, G3, G3, G3, G3, 
+G3, G3, G3, G3, G3, G3, G3, G3, G3, G3, G3, G3, G3, R, 
+NULL};
+
+ImpMarch.AltoDurations= {
+G3, R, G3, G3, G3, G3, G3, G3, G3, G3, AS3, AS3, AS3, AS3, 
+G3, R, G3, G3, G3, G3, G3, G3, G3, G3, AS3, AS3, AS3, AS3, 
+G3, R, G3, G3, G3, G3, G3, G3, G3, G3, AS3, AS3, AS3, AS3, 
+G3, R, G3, G3, G3, G3, G3, G3, G3, G3, AS3, AS3, AS3, AS3, 
+G3, R, G3, G3, G3, G3, G3, G3, G3, G3, AS3, AS3, AS3, AS3, 
+//Top of Page 2
+D4, R, D4, D4, D4, D4, D4, D4, D4, D4, D4, D4, D4, D4, 
+GS3, R, GS3, GS3, GS3, GS3, GS3, GS3, GS3, GS3, GS3, GS3, GS3, GS3, 
+AS3, R, AS3, AS3, AS3, AS3, AS3, AS3, AS3, AS3, AS3, AS3, AS3, AS3, 
+D4, R, D4, D4, D4, D4, D4, D4, D4, D4, D4, D4, D4, D4, 
+B3, R, B3, B3, B3, B3, D4, D4, D4, D4, D4, D4, D4, D4, 
+GS3, R, GS3, GS3, GS3, GS3, GS3, GS3, GS3, GS3, GS3, GS3, GS3, GS3, 
+AS3, R, AS3, AS3, AS3, AS3, AS3, AS3, AS3, AS3, AS3, AS3, AS3, AS3, 
+//Top of Page 3
+D4, R, AS3, AS3, AS3, AS3, D4, D4, D4, D4, D4, D4, D4, D4, 
+G4, R, G4, G4, G4, G4, G4, G4, G4, G4, G4, G4, G4, G4, 
+G4, R, G4, G4, G4, G4, G4, G4, G4, G4, G4, G4, G4, G4, 
+G4, R, G4, G4, G4, G4, G4, G4, G4, G4, G4, G4, G4, G4, 
+G4, R, G4, G4, G4, G4, G4, G4, G4, G4, G4, G4, G4, G4, 
+G4, R, G4, G4, G4, G4, G4, G4, G4, G4, G4, G4, G4, G4, 
+G4, R, G4, G4, G4, G4, G4, G4, G4, G4, G4, G4, G4, G4, 
+AS4, R, AS4, AS4, AS4, AS4, AS4, AS4, AS4, AS4, AS4, AS4, AS4, AS4, 
+F4, R, F4, F4, F4, F4, F4, F4, F4, F4, F4, F4, F4, F4, 
+//Top of Page 4
+G4, R, G4, G4, G4, G4, G4, G4, G4, G4, G4, G4, G4, G4, 
+AS4, R, AS4, AS4, AS4, AS4, AS4, AS4, AS4, AS4, AS4, AS4, AS4, AS4, 
+G4, R, G4, G4, G4, G4, AS4, AS4, AS4, AS4, AS4, AS4, AS4, AS4,
+F4, R, F4, F4, F4, F4, F4, F4, F4, F4, F4, F4, F4, F4, 
+G4, R, G4, G4, G4, G4, G4, G4, G4, G4, G4, G4, G4, G4, 
+AS4, R, G4, G4, G4, G4, AS4, AS4, AS4, AS4, AS4, AS4, AS4, AS4, 
+G3, G3, G3, G3, G3, G3, G3, G3, G3, G3, G3, G3, G3, G3, G3, G3, 
+G3, G3, G3, G3, G3, G3, G3, G3, G3, G3, G3, G3, G3, R, 
+NULL};
 
 
