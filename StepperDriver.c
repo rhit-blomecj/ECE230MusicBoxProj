@@ -8,42 +8,42 @@
 
 #ifdef Stepper1
 uint8_t stepper1Sequence[STEP_SEQ_CNT] = {Stepper1_pin1, Stepper1_pin2, Stepper1_pin3, Stepper1_pin4};//TODO find a way to make this dependent on stepper bitmask
-uint16_t stepper1Period = 48;//init period will be set to whatever BPM of the song is and step Period will be updated to whatever matches with bpm
+uint16_t stepper1Period = 80;//init period will be set to whatever BPM of the song is and step Period will be updated to whatever matches with bpm
 uint8_t stepper1CurrentStep = 0;
 #endif
 
 #ifdef Stepper2
 uint8_t stepper2Sequence[STEP_SEQ_CNT] = {Stepper2_pin1, Stepper2_pin2, Stepper2_pin3, Stepper2_pin4};//TODO find a way to make this dependent on stepper bitmask
-uint16_t stepper2Period = 48;//init period will be set to whatever BPM of the song is and step Period will be updated to whatever matches with bpm
+uint16_t stepper2Period = 80;//init period will be set to whatever BPM of the song is and step Period will be updated to whatever matches with bpm
 uint8_t stepper2CurrentStep = 0;
 #endif
 
 #ifdef Stepper3
 uint8_t stepper3Sequence[STEP_SEQ_CNT] = {Stepper3_pin1, Stepper3_pin2, Stepper3_pin3, Stepper3_pin4};//TODO find a way to make this dependent on stepper bitmask
-uint16_t stepper3Period = 48;//init period will be set to whatever BPM of the song is and step Period will be updated to whatever matches with bpm
+uint16_t stepper3Period = 80;//init period will be set to whatever BPM of the song is and step Period will be updated to whatever matches with bpm
 uint8_t stepper3CurrentStep = 0;
 #endif
 
 #ifdef Stepper4
 uint8_t stepper4Sequence[STEP_SEQ_CNT] = {Stepper4_pin1, Stepper4_pin2, Stepper4_pin3, Stepper4_pin4};//TODO find a way to make this dependent on stepper bitmask
-uint16_t stepper4Period = 48;//init period will be set to whatever BPM of the song is and step Period will be updated to whatever matches with bpm
+uint16_t stepper4Period = 80;//init period will be set to whatever BPM of the song is and step Period will be updated to whatever matches with bpm
 uint8_t stepper4CurrentStep = 0;
 #endif
 
 #ifdef Stepper5
 uint8_t stepper5Sequence[STEP_SEQ_CNT] = {Stepper5_pin1, Stepper5_pin2, Stepper5_pin3, Stepper5_pin4};//TODO find a way to make this dependent on stepper bitmask
-uint16_t stepper5Period = 48;//init period will be set to whatever BPM of the song is and step Period will be updated to whatever matches with bpm
+uint16_t stepper5Period = 80;//init period will be set to whatever BPM of the song is and step Period will be updated to whatever matches with bpm
 uint8_t stepper5CurrentStep = 0;
 #endif
 
 #ifdef Stepper6
 uint8_t stepper6Sequence[STEP_SEQ_CNT] = {Stepper6_pin1, Stepper6_pin2, Stepper6_pin3, Stepper6_pin4};//TODO find a way to make this dependent on stepper bitmask
-uint16_t stepper6Period = 48;//init period will be set to whatever BPM of the song is and step Period will be updated to whatever matches with bpm
+uint16_t stepper6Period = 80;//init period will be set to whatever BPM of the song is and step Period will be updated to whatever matches with bpm
 uint8_t stepper6CurrentStep = 0;
 #endif
 
 void initStepperTimer(void){
-
+    //would need to run the LFXTconfig if I didn't already for speakers
     #ifdef Stepper1
         StepperTimer->CCTL[1] = TIMER_A_CCTLN_CCIE;//Interupt enabled
         StepperTimer->CCR[1] = stepper1Period;//TODO setup the stepper CCR registers and CCTL registers
@@ -203,6 +203,57 @@ void disableStepperMotor(DIO_PORT_Odd_Interruptable_Type* port, int stepperMask)
 
 }
 
+ void setRPM(float rpm, int stepperMask) {
+     //If I think about BPM->RPM 40 BPM is 2 RPM and 240 BPM is 12 RPM
+     //needs  implemented but 2rpm is 480ticks - 12 rpm is 80 ticks
+     int calculatedTicks = rpmConstant/rpm;
+
+     switch (stepperMask){//TODO: add case 0 later for if we get around to setting up CCR0 support
+         #ifdef Stepper1
+             case Stepper1:
+                 stepper1Period = calculatedTicks;
+                 break;
+         #endif
+
+         #ifdef Stepper2
+             case Stepper2:
+                 stepper2Period = calculatedTicks;
+                 break;
+         #endif
+
+         #ifdef Stepper3
+             case Stepper3:
+                 stepper3Period = calculatedTicks;
+                 break;
+         #endif
+
+         #ifdef Stepper4
+             case Stepper4:
+                 stepper4Period = calculatedTicks;
+                 break;
+         #endif
+
+         #ifdef Stepper5
+             case Stepper5:
+                 stepper5Period = calculatedTicks;
+                 break;
+         #endif
+
+         #ifdef Stepper6
+             case Stepper6:
+                 stepper6Period = calculatedTicks;
+                 break;
+         #endif
+             default:
+                 break;
+
+
+             }
+
+
+
+ }
+
 void step(DIO_PORT_Odd_Interruptable_Type* port, int stepperMask) {
 
     switch (stepperMask){//TODO: add case 0 later for if we get around to setting up CCR0 support
@@ -257,10 +308,6 @@ void step(DIO_PORT_Odd_Interruptable_Type* port, int stepperMask) {
         default:
             break;
         }
-
-
-
-
 
 
 }
