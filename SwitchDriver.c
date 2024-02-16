@@ -29,3 +29,7 @@ void MagnetSwitchPinInit(DIO_PORT_Odd_Interruptable_Type* port, char PinBitmask)
     port->OUT = (port->OUT) | PinBitmask;
 
 }
+
+void debounce(void){
+    //debounce the correct way? maybe
+}

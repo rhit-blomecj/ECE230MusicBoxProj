@@ -12,5 +12,8 @@
 
 typedef enum _SwitchState {Closed, Open} SwitchState;
 
+extern SwitchState CheckMagnetSwitchPin(void);
+
+extern void MagnetSwitchPinInit(DIO_PORT_Odd_Interruptable_Type* port, char PinBitmask);
 
 #endif /* SWITCHDRIVER_H_ */
