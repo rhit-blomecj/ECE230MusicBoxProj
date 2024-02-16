@@ -10,5 +10,7 @@
 
 #include "global.h"
 
+typedef enum _SwitchState {Closed, Open} SwitchState;//box enum
+
 
 #endif /* SWITCHDRIVER_H_ */

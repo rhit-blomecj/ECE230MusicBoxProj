@@ -6,7 +6,7 @@
  */
 #include "SwitchDriver.h"
 
-MagnetSwitchPinState CheckMagnetSwitchPin(void){
+SwitchState CheckMagnetSwitchPin(void){
     char switchValue;
     switchValue = (MagnetSwitchPinPort-> IN) & MagnetSwitchPin;
 
