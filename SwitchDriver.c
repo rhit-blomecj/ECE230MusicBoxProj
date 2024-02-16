@@ -4,11 +4,11 @@
  *  Created on: Feb 4, 2024
  *      Author: blomecj
  */
-#include "MagnetSwitchPinDriver.h"
+#include "SwitchDriver.h"
 
 MagnetSwitchPinState CheckMagnetSwitchPin(void){
     char switchValue;
-    switchValue = (MagnetMagnetSwitchPinPort-> IN) & MagnetSwitchPin;
+    switchValue = (MagnetSwitchPinPort-> IN) & MagnetSwitchPin;
 
     if (switchValue==0){
         debounce();
@@ -20,7 +20,7 @@ MagnetSwitchPinState CheckMagnetSwitchPin(void){
     }
 }
 
-void MagnetSwitchPinInit(DIO_PORT_Even_Interruptable_Type* port, char PinBitmask){
+void MagnetSwitchPinInit(DIO_PORT_Odd_Interruptable_Type* port, char PinBitmask){
     port->SEL0 = (port->SEL0) & ~PinBitmask;
     port->SEL1 = (port->SEL1) & ~PinBitmask;
     port->DIR = (port->DIR) & ~PinBitmask;

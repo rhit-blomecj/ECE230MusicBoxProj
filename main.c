@@ -18,9 +18,9 @@ int currentBassNote = 0;
 
 
 //initialize 4 songs
-Song Songs[] = {};
-
-Song activeSong = Songs[0];
+//Song Songs[] = {};
+//
+//Song activeSong = Songs[0];
 
 
 
@@ -100,8 +100,11 @@ void main(void)
 	__enable_irq();                 // Enable global interrupt
 
 //	SpeakerPort->DIR &= ~(Alto | Tenor | Bass);
-	bpm = 120;
+	bpm = 120;//bpm->rpm 240=12 40 =2 so bpm/20 = rpm
 	onebeatticks = (int)((60.0/(float)bpm)*(float)NoteDurationTimerFreq);//initialization needed to wait until here TODO  make functions to do this and do this when bpm switches
+
+
+	setRPM(((float)bpm/(float)bpmTorpmConst), Stepper1);
 
 	//need to do this to start the song
 	playFrequency(Soprano, activeSopranoNotes[currentSopranoNote]);

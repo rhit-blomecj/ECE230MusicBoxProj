@@ -25,8 +25,9 @@
 #define Tenor Speaker2
 #define Bass Speaker1
 
+#define bpmTorpmConst 20
 
-typedef enum _SwitchState {NotPressed, Pressed} SwitchState;
+
 typedef enum _BoxState {Closed, Open} BoxState;//box enum
 
 typedef struct {
@@ -36,17 +37,17 @@ typedef struct {
 
     int bpm;
 
-    float *SopranoNotes[];
-    float *SopranoDurations[];
+    float *SopranoNotes;
+    float *SopranoDurations;
 
-    float *AltoNotes[];
-    float *AltoDurations[];
+    float *AltoNotes;
+    float *AltoDurations;
 
-    float *TenorNotes[];
-    float *TenorDurations[];
+    float *TenorNotes;
+    float *TenorDurations;
 
-    float *BassNotes[];
-    float *BassDurations[];
+    float *BassNotes;
+    float *BassDurations;
 
 } Song;
 
