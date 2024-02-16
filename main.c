@@ -6,7 +6,7 @@
  */
 #include "main.h"
 
-int bpm = 120;//TODO assign init values
+int bpm = 0;//TODO assign init values
 int onebeatticks = 0;//equation to give ticks per beat
 
 BoxState boxState;
@@ -15,6 +15,15 @@ int currentSopranoNote = 0;
 int currentAltoNote = 0;
 int currentTenorNote = 0;
 int currentBassNote = 0;
+
+
+//initialize 4 songs
+Song Songs[] = {};
+
+Song activeSong = Songs[0];
+
+
+
 
 float activeSopranoNotes[] = {C4, R, C6, C7,
                               NULL};
@@ -81,6 +90,7 @@ void main(void)
 	//Speaker Setup END
 
 	NoteDurationSetup();
+
 	//Stepper Setup START
 	initStepperMotor(Stepper1_port, Stepper1);
 
@@ -90,7 +100,7 @@ void main(void)
 	__enable_irq();                 // Enable global interrupt
 
 //	SpeakerPort->DIR &= ~(Alto | Tenor | Bass);
-
+	bpm = 120;
 	onebeatticks = (int)((60.0/(float)bpm)*(float)NoteDurationTimerFreq);//initialization needed to wait until here TODO  make functions to do this and do this when bpm switches
 
 	//need to do this to start the song
