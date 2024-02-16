@@ -8,7 +8,7 @@
 
 SwitchState CheckMagnetSwitchPin(void){
     char switchValue;
-    switchValue = (MagnetSwitchPinPort-> IN) & MagnetSwitchPin;
+    switchValue = (MagnetSwitchPort-> IN) & MagnetSwitchPin;
 
     if (switchValue==0){
         debounce();
