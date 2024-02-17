@@ -6,9 +6,9 @@
  */
 #include "SwitchDriver.h"
 
-SwitchState CheckMagnetSwitchPin(void){
+SwitchState CheckSwitch(DIO_PORT_Odd_Interruptable_Type* port, char PinBitmask){
     char switchValue;
-    switchValue = (MagnetSwitchPort-> IN) & MagnetSwitchPin;
+    switchValue = (port-> IN) & PinBitmask;
 
     if (switchValue==0){
         debounce();
@@ -20,12 +20,12 @@ SwitchState CheckMagnetSwitchPin(void){
     }
 }
 
-void MagnetSwitchPinInit(DIO_PORT_Odd_Interruptable_Type* port, char PinBitmask){
+void SwitchInit(DIO_PORT_Odd_Interruptable_Type* port, char PinBitmask){
     port->SEL0 = (port->SEL0) & ~PinBitmask;
     port->SEL1 = (port->SEL1) & ~PinBitmask;
     port->DIR = (port->DIR) & ~PinBitmask;
 
-    port->REN = (port->REN) | PinBitmask;
+    port->REN = (port->REN) | PinBitmask;//pullup resistor so when not pressed its high
     port->OUT = (port->OUT) | PinBitmask;
 
 }
