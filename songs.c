@@ -400,6 +400,137 @@ float CarolBassDur[] = {3,
                         NULL};
 Song CarolOfTheBells;
 
+float BelleSopranoNote[] =
+{
+                        C4, C4, C4, C4, D4, D4, C4, B3, C4,
+                        E4, E4, E4, E4, F4, E4, D4, G4, G4,
+                        G4, G4, G4, G4, F4, F4, F4, F4, E4, E4, E4, E4, D4, D4, D4, D4,
+                        C4, C4, C4, C4, D4, D4, C4, B3, C4,
+
+                        C4, C4, C4, C4, D4, D4, C4, B3, C4,
+                        E4, E4, E4, E4, F4, E4, D4, G4, G4,
+                        G4, G4, G4, G4, F4, F4, F4, F4, E4, E4, E4, E4, D4, D4, D4, D4,
+                        C4, C4, C4, C4, D4, D4, C4, B3, C4,
+                        C4, C4, C4, C4, D4, D4, C4, B3, C4,
+                        E4, E4, E4, E4, F4, E4, D4, G4, G4,
+                        G4, G4, G4, G4, F4, F4, F4, F4, E4, E4, E4, E4, D4, D4, D4, D4,
+                        C4, C4, C4, C4, D4, D4, C4, B3, C4,
+                        NULL};
+
+float BelleSopranoDur[] =
+{
+                        0.5, 0.25, 0.5, 0.75, 0.5, 0.25, 0.5, 0.75, 4, //belle mama belle ma ma ey
+                        0.5, 0.25, 0.5, 0.75, 0.5, 0.25, 0.5, 0.75, 4, //belle mama belle ma ma ey
+                        0.5, 0.25, 0.5, 0.75, 0.5, 0.25, 0.5, 0.75, 0.5, 0.25, 0.5, 0.75, 0.5, 0.25, 0.5, 0.75, //belle mama, belle mama, belle mama, belle mama,
+                        0.5, 0.25, 0.5, 0.75, 0.5, 0.25, 0.5, 0.75, 4, //belle mama belle mama ey
+
+                        0.5, 0.25, 0.5, 0.75, 0.5, 0.25, 0.5, 0.75, 4,
+                        0.5, 0.25, 0.5, 0.75, 0.5, 0.25, 0.5, 0.75, 4,
+                        0.5, 0.25, 0.5, 0.75, 0.5, 0.25, 0.5, 0.75, 0.5, 0.25, 0.5, 0.75, 0.5, 0.25, 0.5, 0.75,
+                        0.5, 0.25, 0.5, 0.75, 0.5, 0.25, 0.5, 0.75, 4,
+                        0.5, 0.25, 0.5, 0.75, 0.5, 0.25, 0.5, 0.75, 4,
+                        0.5, 0.25, 0.5, 0.75, 0.5, 0.25, 0.5, 0.75, 4,
+                        0.5, 0.25, 0.5, 0.75, 0.5, 0.25, 0.5, 0.75, 0.5, 0.25, 0.5, 0.75, 0.5, 0.25, 0.5, 0.75,
+                        0.5, 0.25, 0.5, 0.75, 0.5, 0.25, 0.5, 0.75, 4,
+                        NULL};
+
+float BelleAltoNote[] =
+{
+                        C4, C4, C4, C4, D4, D4, C4, B3, C4,
+                        E4, E4, E4, E4, F4, E4, D4, G4, G4,
+                        G4, G4, G4, G4, F4, F4, F4, F4, E4, E4, E4, E4, D4, D4, D4, D4,
+                        C4, C4, C4, C4, D4, D4, C4, B3, C4,
+
+                        R, R, R, R, R, R, R, R,
+                        C4, C4, C4, C4, D4, D4, C4, B3, C4,
+                        E4, E4, E4, E4, F4, E4, D4, G4, G4,
+                        G4, G4, G4, G4, F4, F4, F4, F4, E4, E4, E4, E4, D4, D4, D4, D4,
+                        C4, C4, C4, C4, D4, D4, C4, B3, C4,
+                        R, R, R, R, R, R, R, R,
+                        R, R, R, R, R, R, R, R,
+                        NULL};
+
+float BelleAltoDur[] =
+{
+                        0.5, 0.25, 0.5, 0.75, 0.5, 0.25, 0.5, 0.75, 4,
+                        0.5, 0.25, 0.5, 0.75, 0.5, 0.25, 0.5, 0.75, 4,
+                        0.5, 0.25, 0.5, 0.75, 0.5, 0.25, 0.5, 0.75, 0.5, 0.25, 0.5, 0.75, 0.5, 0.25, 0.5, 0.75,
+                        0.5, 0.25, 0.5, 0.75, 0.5, 0.25, 0.5, 0.75, 4,
+
+                        1, 1, 1, 1, 1, 1, 1, 1,
+                        0.5, 0.25, 0.5, 0.75, 0.5, 0.25, 0.5, 0.75, 4,
+                        0.5, 0.25, 0.5, 0.75, 0.5, 0.25, 0.5, 0.75, 4,
+                        0.5, 0.25, 0.5, 0.75, 0.5, 0.25, 0.5, 0.75, 0.5, 0.25, 0.5, 0.75, 0.5, 0.25, 0.5, 0.75,
+                        0.5, 0.25, 0.5, 0.75, 0.5, 0.25, 0.5, 0.75, 4,
+                        1, 1, 1, 1, 1, 1, 1, 1,
+                        1, 1, 1, 1, 1, 1, 1, 1,
+                        NULL};
+
+float BelleTenorNote[] =
+{
+                        C4, C4, C4, C4, D4, D4, C4, B3, C4,
+                        E4, E4, E4, E4, F4, E4, D4, G4, G4,
+                        G4, G4, G4, G4, F4, F4, F4, F4, E4, E4, E4, E4, D4, D4, D4, D4,
+                        C4, C4, C4, C4, D4, D4, C4, B3, C4,
+
+                        R, R, R, R, R, R, R, R,
+                        R, R, R, R, R, R, R, R,
+                        C4, C4, C4, C4, D4, D4, C4, B3, C4,
+                        E4, E4, E4, E4, F4, E4, D4, G4, G4,
+                        G4, G4, G4, G4, F4, F4, F4, F4, E4, E4, E4, E4, D4, D4, D4, D4,
+                        C4, C4, C4, C4, D4, D4, C4, B3, C4,
+                        R, R, R, R, R, R, R, R,
+                        NULL};
+
+float BelleTenorDur[] =
+{
+                        0.5, 0.25, 0.5, 0.75, 0.5, 0.25, 0.5, 0.75, 4,
+                        0.5, 0.25, 0.5, 0.75, 0.5, 0.25, 0.5, 0.75, 4,
+                        0.5, 0.25, 0.5, 0.75, 0.5, 0.25, 0.5, 0.75, 0.5, 0.25, 0.5, 0.75, 0.5, 0.25, 0.5, 0.75,
+                        0.5, 0.25, 0.5, 0.75, 0.5, 0.25, 0.5, 0.75, 4,
+
+                        1, 1, 1, 1, 1, 1, 1, 1,
+                        1, 1, 1, 1, 1, 1, 1, 1,
+                        0.5, 0.25, 0.5, 0.75, 0.5, 0.25, 0.5, 0.75, 4,
+                        0.5, 0.25, 0.5, 0.75, 0.5, 0.25, 0.5, 0.75, 4,
+                        0.5, 0.25, 0.5, 0.75, 0.5, 0.25, 0.5, 0.75, 0.5, 0.25, 0.5, 0.75, 0.5, 0.25, 0.5, 0.75,
+                        0.5, 0.25, 0.5, 0.75, 0.5, 0.25, 0.5, 0.75, 4,
+                        1, 1, 1, 1, 1, 1, 1, 1,
+                        NULL};
+
+float BelleBassNote[] =
+{
+                        C4, C4, C4, C4, D4, D4, C4, B3, C4,
+                        E4, E4, E4, E4, F4, E4, D4, G4, G4,
+                        G4, G4, G4, G4, F4, F4, F4, F4, E4, E4, E4, E4, D4, D4, D4, D4,
+                        C4, C4, C4, C4, D4, D4, C4, B3, C4,
+
+                        R, R, R, R, R, R, R, R,
+                        R, R, R, R, R, R, R, R,
+                        R, R, R, R, R, R, R, R,
+                        C4, C4, C4, C4, D4, D4, C4, B3, C4,
+                        E4, E4, E4, E4, F4, E4, D4, G4, G4,
+                        G4, G4, G4, G4, F4, F4, F4, F4, E4, E4, E4, E4, D4, D4, D4, D4,
+                        C4, C4, C4, C4, D4, D4, C4, B3, C4,
+                        NULL};
+
+float BelleBassDur[] =
+{
+                        0.5, 0.25, 0.5, 0.75, 0.5, 0.25, 0.5, 0.75, 4,
+                        0.5, 0.25, 0.5, 0.75, 0.5, 0.25, 0.5, 0.75, 4,
+                        0.5, 0.25, 0.5, 0.75, 0.5, 0.25, 0.5, 0.75, 0.5, 0.25, 0.5, 0.75, 0.5, 0.25, 0.5, 0.75,
+                        0.5, 0.25, 0.5, 0.75, 0.5, 0.25, 0.5, 0.75, 4,
+
+                        1, 1, 1, 1, 1, 1, 1, 1,
+                        1, 1, 1, 1, 1, 1, 1, 1,
+                        1, 1, 1, 1, 1, 1, 1, 1,
+                        0.5, 0.25, 0.5, 0.75, 0.5, 0.25, 0.5, 0.75, 4,
+                        0.5, 0.25, 0.5, 0.75, 0.5, 0.25, 0.5, 0.75, 4,
+                        0.5, 0.25, 0.5, 0.75, 0.5, 0.25, 0.5, 0.75, 0.5, 0.25, 0.5, 0.75, 0.5, 0.25, 0.5, 0.75,
+                        0.5, 0.25, 0.5, 0.75, 0.5, 0.25, 0.5, 0.75, 4,
+                        NULL};
+
+Song BelleMama;
 
 Song NULLSONG ={NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL} ;
 
@@ -416,7 +547,19 @@ Song* createSongsArray(void){
     CarolOfTheBells.BassNotes = CarolBassNote;
     CarolOfTheBells.BassDurations = CarolBassDur;
 
+    BelleMama.Title = "Belle Mama";
+    BelleMama.Artist = "Think Cre8tive";
+    BelleMama.bpm =  70;
+    BelleMama.SopranoNotes = BelleSopranoNote;
+    BelleMama.SopranoDurations = BelleSopranoDur;
+    BelleMama.AltoNotes = BelleAltoNote;
+    BelleMama.AltoDurations =  BelleAltoDur;
+    BelleMama.TenorNotes = BelleTenorNote;
+    BelleMama.TenorDurations = BelleTenorDur;
+    BelleMama.BassNotes = BelleBassNote;
+    BelleMama.BassDurations = BelleBassDur;
 
-    Song Songs[] = {CarolOfTheBells, NULLSONG};//TO DETECT NULLSONG just check if (Title == NULL) if yes then set activesongindex to 0
+
+    Song Songs[] = {BelleMama, CarolOfTheBells, NULLSONG};//TO DETECT NULLSONG just check if (Title == NULL) if yes then set activesongindex to 0
     return Songs;
 }

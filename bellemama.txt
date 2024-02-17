@@ -3,7 +3,7 @@
 //in B flat major
 
 //Soprano:
-Note SopranoNoteOrderArray[] = 
+float SopranoNoteOrderArray[] = 
 {
 C4, C4, C4, C4, D4, D4, C4, B3, C4,
 E4, E4, E4, E4, F4, E4, D4, G4, G4, 
@@ -38,7 +38,7 @@ float SopranoNoteLengthArray[] =
 0.5, 0.25, 0.5, 0.75, 0.5, 0.25, 0.5, 0.75, 4,
 NULL}
 
-Note AltoNoteOrderArray[] = 
+float AltoNoteOrderArray[] = 
 {
 C4, C4, C4, C4, D4, D4, C4, B3, C4,
 E4, E4, E4, E4, F4, E4, D4, G4, G4, 
@@ -70,7 +70,7 @@ float AltoNoteLengthArray[] =
 1, 1, 1, 1, 1, 1, 1, 1,
 NULL}
 
-Note TenorNoteOrderArray[] = 
+float TenorNoteOrderArray[] = 
 {
 C4, C4, C4, C4, D4, D4, C4, B3, C4,
 E4, E4, E4, E4, F4, E4, D4, G4, G4, 
@@ -103,7 +103,7 @@ float TenorNoteLengthArray[] =
 1, 1, 1, 1, 1, 1, 1, 1,
 NULL}
 
-Note BassNoteOrderArray[] = 
+float BassNoteOrderArray[] = 
 {
 C4, C4, C4, C4, D4, D4, C4, B3, C4,
 E4, E4, E4, E4, F4, E4, D4, G4, G4, 
