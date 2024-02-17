@@ -19,12 +19,12 @@ SwitchState CheckSwitch(DIO_PORT_Odd_Interruptable_Type* port, char PinBitmask){
 }
 
 void SwitchInit(DIO_PORT_Odd_Interruptable_Type* port, char PinBitmask){
-    port->SEL0 = (port->SEL0) & ~PinBitmask;
-    port->SEL1 = (port->SEL1) & ~PinBitmask;
-    port->DIR = (port->DIR) & ~PinBitmask;
+    port->SEL0 &= ~PinBitmask;
+    port->SEL1 &= ~PinBitmask;
+    port->DIR &= ~PinBitmask;
 
-    port->REN = (port->REN) | PinBitmask;//pullup resistor so when not pressed its high
-    port->OUT = (port->OUT) | PinBitmask;
+    port->REN |= PinBitmask;//pullup resistor so when not pressed its high
+    port->OUT |= PinBitmask;
 
 }
 
