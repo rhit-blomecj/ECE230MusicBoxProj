@@ -10,7 +10,7 @@
 
 #include "global.h"
 
-typedef enum _SwitchState {Closed, Open} SwitchState;
+typedef enum _SwitchState {Pressed, NotPressed} SwitchState;
 
 extern SwitchState CheckMagnetSwitchPin(void);
 

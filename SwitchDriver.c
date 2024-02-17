@@ -12,11 +12,11 @@ SwitchState CheckMagnetSwitchPin(void){
 
     if (switchValue==0){
         debounce();
-        return Closed;
+        return Pressed;
     }
     else {
         debounce();
-        return Open;
+        return NotPressed;
     }
 }
 
