@@ -77,7 +77,7 @@ void configHFXT(void)
     /* Select clock source for MCLK & HSMCLK = HFXT, no divider */
     CS->CTL1 = (CS->CTL1 & ~(CS_CTL1_SELM_MASK | CS_CTL1_DIVM_MASK
                 | CS_CTL1_SELS_MASK | CS_CTL1_DIVHS_MASK))      // clear fields
-//                | CS_CTL1_SELM__HFXTCLK         // select MCLK source HFXTCLK
+                | CS_CTL1_SELM__HFXTCLK         // select MCLK source HFXTCLK
                 | CS_CTL1_SELS__HFXTCLK         // select SMCLK source HFXTCLK
                 | CS_CTL1_DIVM__1               // set MCLK divider /1
                 | CS_CTL1_DIVS__1;              // set SMCLK divider /1

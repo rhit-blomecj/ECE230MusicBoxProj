@@ -9,7 +9,7 @@
 #define NOTEDEFS_H_
 //DONE add Note Frequencies so our Music can use these defines to have proper values
 //https://mixbutton.com/mixing-articles/music-note-to-frequency-chart/
-#define R 1 //rest # of ticks
+#define R 30000 //Hz this should be out of human hearing range so maybe this will work?
 
 #define A0 27.50 //Hz
 #define AS0 29.14 //Hz

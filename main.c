@@ -16,37 +16,37 @@ int currentAltoNote = 0;
 int currentTenorNote = 0;
 int currentBassNote = 0;
 
+Song* Songs;
 
-//initialize 4 songs
-//Song Songs[] = {};
+int activeSongIndex = 0;
+
+Song activeSong;
+
+
+
+
+//float activeSopranoNotes[] = {C4, R, C6, C7,
+//                              NULL};
+//float activeSopranoDurations[] = {2, 2, 2, 2,
+//                                  NULL};
 //
-//Song activeSong = Songs[0];
-
-
-
-
-float activeSopranoNotes[] = {C4, R, C6, C7,
-                              NULL};
-float activeSopranoDurations[] = {2, 2, 2, 2,
-                                  NULL};
-
-
-float activeAltoNotes[] = {E4, R, E6, E7,
-                           NULL};
-float activeAltoDurations[] = {2, 2, 2, 2,
-                               NULL};
-
-
-float activeTenorNotes[] = {G4, R, G6, G7,
-                            NULL};
-float activeTenorDurations[] = {2, 2, 2, 2,
-                                NULL};
-
-
-float activeBassNotes[] = {B4, R, B6, B7,
-                           NULL};
-float activeBassDurations[] = {2, 2, 2, 2,
-                               NULL};
+//
+//float activeAltoNotes[] = {E4, R, E6, E7,
+//                           NULL};
+//float activeAltoDurations[] = {2, 2, 2, 2,
+//                               NULL};
+//
+//
+//float activeTenorNotes[] = {G4, R, G6, G7,
+//                            NULL};
+//float activeTenorDurations[] = {2, 2, 2, 2,
+//                                NULL};
+//
+//
+//float activeBassNotes[] = {B4, R, B6, B7,
+//                           NULL};
+//float activeBassDurations[] = {2, 2, 2, 2,
+//                               NULL};
 
 //might just use onebeatticks for ticks to spin the stepper to but remove some amount of prescalar so it moves like 5 times faster or something
 
@@ -85,7 +85,6 @@ void main(void)
 	initSpeaker(SpeakerPort, Alto);
 	initSpeaker(SpeakerPort, Tenor);
 	initSpeaker(SpeakerPort, Bass);
-
 	initSpeakerFreqTimer();
 	//Speaker Setup END
 
@@ -93,31 +92,40 @@ void main(void)
 
 	//Stepper Setup START
 	initStepperMotor(Stepper1_port, Stepper1);
-
 	initStepperTimer();
 	//Stepper Setup END
 
 	__enable_irq();                 // Enable global interrupt
 
-//	SpeakerPort->DIR &= ~(Alto | Tenor | Bass);
-	bpm = 120;//bpm->rpm 240=12 40 =2 so bpm/20 = rpm
-	onebeatticks = (int)((60.0/(float)bpm)*(float)NoteDurationTimerFreq);//initialization needed to wait until here TODO  make functions to do this and do this when bpm switches
 
+    //need to do this to start the song
+    Songs = createSongsArray();
 
-	setRPM(((float)bpm/(float)bpmTorpmConst), Stepper1);
+    activeSong = Songs[activeSongIndex];
 
-	//need to do this to start the song
-	playFrequency(Soprano, activeSopranoNotes[currentSopranoNote]);
-	playFrequency(Alto, activeAltoNotes[currentAltoNote]);
-	playFrequency(Tenor, activeTenorNotes[currentTenorNote]);
-	playFrequency(Bass, activeBassNotes[currentBassNote]);
+	bpm = activeSong.bpm;//bpm->rpm 240=12 40 =2 so bpm/20 = rpm
+    onebeatticks = (int)((60.0/(float)bpm)*(float)NoteDurationTimerFreq);//initialization needed to wait until here TODO  make functions to do this and do this when bpm switches
+
+    setRPM(((float)bpm/(float)bpmTorpmConst), Stepper1);
 
 
 
-	NoteDurationTimer->CCR[4] += (int) ((float)onebeatticks*activeSopranoDurations[currentSopranoNote]);
-	NoteDurationTimer->CCR[3] += (int) ((float)onebeatticks*activeAltoDurations[currentAltoNote]);
-	NoteDurationTimer->CCR[2] += (int) ((float)onebeatticks*activeTenorDurations[currentTenorNote]);
-	NoteDurationTimer->CCR[1] += (int) ((float)onebeatticks*activeBassDurations[currentBassNote]);
+    playFrequency(Soprano, activeSong.SopranoNotes[currentSopranoNote]);
+    playFrequency(Alto, activeSong.AltoNotes[currentAltoNote]);
+    playFrequency(Tenor, activeSong.TenorNotes[currentTenorNote]);
+    playFrequency(Bass, activeSong.BassNotes[currentBassNote]);
+
+
+    NoteDurationTimer->CCR[4] += (int) ((float)onebeatticks*activeSong.SopranoDurations[currentSopranoNote]);
+    NoteDurationTimer->CCR[3] += (int) ((float)onebeatticks*activeSong.AltoDurations[currentAltoNote]);
+    NoteDurationTimer->CCR[2] += (int) ((float)onebeatticks*activeSong.TenorDurations[currentTenorNote]);
+    NoteDurationTimer->CCR[1] += (int) ((float)onebeatticks*activeSong.BassDurations[currentBassNote]);
+
+
+	//MagnetSwitchSetup
+	SwitchInit(MagnetSwitchPort, MagnetSwitchPin);
+
+
 
 	while(1){
 	    if(boxState==Closed){//Box closed needs enum defined and should be public
@@ -156,14 +164,14 @@ void TA2_N_IRQHandler(void){
 
         if(!insert_rest_soprano){//check if we need to
             currentSopranoNote ++;
-            if(activeSopranoDurations[currentSopranoNote] == NULL){
+            if(activeSong.SopranoDurations[currentSopranoNote] == NULL){
                 currentSopranoNote=0;
             }
 
             //call playNote function
 
-            NoteDurationTimer->CCR[4] += (int) ((float)onebeatticks*activeSopranoDurations[currentSopranoNote]);//will need to do this in ticks onebeat ticks needs to be calculated based on bpm
-            playFrequency(Soprano, activeSopranoNotes[currentSopranoNote]);
+            NoteDurationTimer->CCR[4] += (int) ((float)onebeatticks*activeSong.SopranoDurations[currentSopranoNote]);//will need to do this in ticks onebeat ticks needs to be calculated based on bpm
+            playFrequency(Soprano, activeSong.SopranoNotes[currentSopranoNote]);
             SpeakerPort->DIR |= (Soprano);//make soprano output
 
             insert_rest_soprano = 1;
@@ -181,14 +189,14 @@ void TA2_N_IRQHandler(void){
 
         if(!insert_rest_alto){//check if we need to
                 currentAltoNote ++;
-                    if(activeAltoDurations[currentAltoNote] == NULL){
+                    if(activeSong.AltoDurations[currentAltoNote] == NULL){
                         currentAltoNote=0;
                     }
 
                     //call playNote function
 
-                    NoteDurationTimer->CCR[3] += (int) ((float)onebeatticks*activeAltoDurations[currentAltoNote]);//will need to do this in ticks onebeat ticks needs to be calculated based on bpm
-                    playFrequency(Alto, activeAltoNotes[currentAltoNote]);
+                    NoteDurationTimer->CCR[3] += (int) ((float)onebeatticks*activeSong.AltoDurations[currentAltoNote]);//will need to do this in ticks onebeat ticks needs to be calculated based on bpm
+                    playFrequency(Alto, activeSong.AltoNotes[currentAltoNote]);
                     SpeakerPort->DIR |= (Alto);//make Alto output
 
                     insert_rest_alto = 1;
@@ -207,14 +215,14 @@ void TA2_N_IRQHandler(void){
 
         if(!insert_rest_tenor){//check if we need to
                         currentTenorNote ++;
-                            if(activeTenorDurations[currentTenorNote] == NULL){
+                            if(activeSong.TenorDurations[currentTenorNote] == NULL){
                                 currentTenorNote=0;
                             }
 
                             //call playNote function
 
-                            NoteDurationTimer->CCR[2] += (int) ((float)onebeatticks*activeTenorDurations[currentTenorNote]);//will need to do this in ticks onebeat ticks needs to be calculated based on bpm
-                            playFrequency(Tenor, activeTenorNotes[currentTenorNote]);
+                            NoteDurationTimer->CCR[2] += (int) ((float)onebeatticks*activeSong.TenorDurations[currentTenorNote]);//will need to do this in ticks onebeat ticks needs to be calculated based on bpm
+                            playFrequency(Tenor, activeSong.TenorNotes[currentTenorNote]);
                             SpeakerPort->DIR |= (Tenor);//make Tenor output
 
                             insert_rest_tenor = 1;
@@ -233,14 +241,14 @@ void TA2_N_IRQHandler(void){
 
         if(!insert_rest_bass){//check if we need to
                                 currentBassNote ++;
-                                    if(activeBassDurations[currentBassNote] == NULL){
+                                    if(activeSong.BassDurations[currentBassNote] == NULL){
                                         currentBassNote=0;
                                     }
 
                                     //call playNote function
 
-                                    NoteDurationTimer->CCR[1] += (int) ((float)onebeatticks*activeBassDurations[currentBassNote]);//will need to do this in ticks onebeat ticks needs to be calculated based on bpm
-                                    playFrequency(Bass, activeBassNotes[currentBassNote]);
+                                    NoteDurationTimer->CCR[1] += (int) ((float)onebeatticks*activeSong.BassDurations[currentBassNote]);//will need to do this in ticks onebeat ticks needs to be calculated based on bpm
+                                    playFrequency(Bass, activeSong.BassNotes[currentBassNote]);
                                     SpeakerPort->DIR |= (Bass);//make Bass output
 
                                     insert_rest_bass = 1;

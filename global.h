@@ -11,6 +11,9 @@
 #include "msp.h"
 #include "NoteDefs.h"
 
+
+
+
 //LCDDataPort should be P4
 //LCD Control Pins P1.6 P1.7
 #define LCDDataPort P4

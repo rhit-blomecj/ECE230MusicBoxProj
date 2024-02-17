@@ -9,13 +9,14 @@
 #define MAIN_H_
 
 #include "global.h"
+#include "songs.h"
 #include "csLFXT.h"
 #include "LCDDriver.h"
 #include "SpeakerDriver.h"
 #include "StepperDriver.h"
 #include "SpeakerDriver.h"
 #include "SwitchDriver.h"
-#include <stdio.h>  //NULL is defined in this header file
+
 
 
 
@@ -29,26 +30,5 @@
 
 
 typedef enum _BoxState {Closed, Open} BoxState;//box enum
-
-typedef struct {
-    char* Title;
-
-    char* Artist;
-
-    int bpm;
-
-    float *SopranoNotes;
-    float *SopranoDurations;
-
-    float *AltoNotes;
-    float *AltoDurations;
-
-    float *TenorNotes;
-    float *TenorDurations;
-
-    float *BassNotes;
-    float *BassDurations;
-
-} Song;
 
 #endif /* MAIN_H_ */
