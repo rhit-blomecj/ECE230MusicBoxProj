@@ -10,7 +10,7 @@
 
 #include "global.h"
 
-#define debounceDelayLoops 1500//should give me ~5ms debounce assuming 3MHz MCLK (Which I made a change to HFXT to make this work)
+#define debounceDelayLoops 24000//should give me ~5ms debounce assuming 48MHz MCLK (Which I made a change to HFXT to make this work)
 
 typedef enum _SwitchState {Pressed, NotPressed} SwitchState;
 
