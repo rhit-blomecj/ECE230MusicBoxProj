@@ -30,7 +30,8 @@ void SwitchInit(DIO_PORT_Odd_Interruptable_Type* port, char PinBitmask){
 
 //THIS DEBOUNCE IS ~5ms ASSUMING THAT WE DON'T CHANGE THE MCLK FROM 3MHz
 void SwitchDebounce(void){
-    for(int i = 0; i<debounceDelayLoops; i++){
+    int i;
+    for(i=0; i<debounceDelayLoops; i++){
     }
 }
 

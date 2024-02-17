@@ -18,6 +18,6 @@ extern SwitchState CheckSwitch(DIO_PORT_Odd_Interruptable_Type* port, char PinBi
 
 extern void SwitchInit(DIO_PORT_Odd_Interruptable_Type* port, char PinBitmask);
 
-void SwitchDebounce(void);
+extern void SwitchDebounce(void);
 
 #endif /* SWITCHDRIVER_H_ */
