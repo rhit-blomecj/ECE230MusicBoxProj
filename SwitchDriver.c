@@ -11,11 +11,9 @@ SwitchState CheckSwitch(DIO_PORT_Odd_Interruptable_Type* port, char PinBitmask){
     switchValue = (port-> IN) & PinBitmask;
 
     if (switchValue==0){
-        debounce();
         return Pressed;
     }
     else {
-        debounce();
         return NotPressed;
     }
 }
@@ -30,6 +28,9 @@ void SwitchInit(DIO_PORT_Odd_Interruptable_Type* port, char PinBitmask){
 
 }
 
-void debounce(void){
-    //debounce the correct way? maybe
+//THIS DEBOUNCE IS ~5ms ASSUMING THAT WE DON'T CHANGE THE MCLK FROM 3MHz
+void SwitchDebounce(void){
+    for(int i = 0; i<debounceDelayLoops; i++){
+    }
 }
+

@@ -10,10 +10,14 @@
 
 #include "global.h"
 
+#define debounceDelayLoops 1500//should give me ~5ms debounce assuming 3MHz MCLK (Which I made a change to HFXT to make this work)
+
 typedef enum _SwitchState {Pressed, NotPressed} SwitchState;
 
-extern SwitchState CheckMagnetSwitchPin(void);
+extern SwitchState CheckSwitch(DIO_PORT_Odd_Interruptable_Type* port, char PinBitmask);
 
-extern void MagnetSwitchPinInit(DIO_PORT_Odd_Interruptable_Type* port, char PinBitmask);
+extern void SwitchInit(DIO_PORT_Odd_Interruptable_Type* port, char PinBitmask);
+
+void SwitchDebounce(void);
 
 #endif /* SWITCHDRIVER_H_ */
