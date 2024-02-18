@@ -61,7 +61,8 @@ void lcd_putch(char character) {
 //  TODO also enable LCD scrolling if song name or artist name will run off the display (check if the string being sent to LCD will run out of space (maybe make main in charge of this with an interupt handler and make a function that shifts the LCD)
 void lcd_puts(char *string) {
     while (*string != 0){ // Last character in a C-language string is alway "0" (ASCII NULL character)
-        lcd8bits_write(DATA_MODE, *string);
+//        lcd8bits_write(DATA_MODE, *string);
+        lcd_putch(*string);
         string++;
     }
 }
@@ -71,10 +72,16 @@ void lcd_puts(char *string) {
 void lcd_SetLineNumber(unsigned char position) {
     lcd8bits_write(CMD_MODE, 0x80 | position); // The "cursor move" command is indicated by MSB=1 (0x80)
     // followed by the panel position address (0x00- 0x7F)
+    DelayMs(200);
 }
 
 void lcd_clear(void) {
     lcd8bits_write(CMD_MODE, LCDCMD_ClearDisplay);
+    DelayMs(2);
+}
+
+void lcd_home(void) {
+    lcd8bits_write(CMD_MODE, LCDCMD_Home);
     DelayMs(2);
 }
 
