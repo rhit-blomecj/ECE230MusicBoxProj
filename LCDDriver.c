@@ -6,19 +6,19 @@
  */
 #include "LCDDriver.h"
 
-#define Set_Command_Mode LCDControlPort->OUT = (LCDControlPort->OUT) & (~(0b1<<LCDRSPin));
-#define Set_Data_Mode LCDControlPort->OUT = (LCDControlPort->OUT) | (0b1<<LCDRSPin);
+#define Set_Command_Mode LCDControlPort->OUT = (LCDControlPort->OUT) & (~(LCDRSPin));
+#define Set_Data_Mode LCDControlPort->OUT = (LCDControlPort->OUT) | (LCDRSPin);
 
-#define Set_Enable_Low  LCDControlPort->OUT =  (LCDControlPort->OUT) & ~(0b1<<LCDEPin);
-#define Set_Enable_High  LCDControlPort->OUT =  (LCDControlPort->OUT) | (0b1<<LCDEPin);
+#define Set_Enable_Low  LCDControlPort->OUT =  (LCDControlPort->OUT) & ~(LCDEPin);
+#define Set_Enable_High  LCDControlPort->OUT =  (LCDControlPort->OUT) | (LCDEPin);
 //TODO LCDconfig(#LCDPort)
 
 //TODO LCDinit(#LCDPort) this should run the initialization commands I didn't get 4 bit to work so we are just doing an 8 bit driver unfortunately
 void lcd8bits_init(void)
 {
-    LCDControlPort->DIR = LCDControlPort->DIR | ((0x01<<LCDRSPin) | (0x01<<LCDEPin));
-    LCDControlPort->SEL0 = LCDControlPort->SEL0 & (~(0x01<<LCDRSPin) | ~(0x01<<LCDEPin));
-    LCDControlPort->SEL1 = LCDControlPort->SEL1 & (~(0x01<<LCDRSPin) | ~(0x01<<LCDEPin));
+    LCDControlPort->DIR = LCDControlPort->DIR | ((LCDRSPin) | (LCDEPin));
+    LCDControlPort->SEL0 = LCDControlPort->SEL0 & (~(LCDRSPin) | ~(LCDEPin));
+    LCDControlPort->SEL1 = LCDControlPort->SEL1 & (~(LCDRSPin) | ~(LCDEPin));
     LCDDataPort->DIR = 0b11111111;
     LCDDataPort->SEL0 = 0b00000000;
     LCDDataPort->SEL1 = 0b00000000;
@@ -60,8 +60,10 @@ void lcd_putch(char character) {
 //TODO PrintString(#LCDPort, char *); iterate through chars calling Print Char allow a certain delay between chars
 //  TODO also enable LCD scrolling if song name or artist name will run off the display (check if the string being sent to LCD will run out of space (maybe make main in charge of this with an interupt handler and make a function that shifts the LCD)
 void lcd_puts(char *string) {
-    while (*string != 0) // Last character in a C-language string is alway "0" (ASCII NULL character)
-        lcd8bits_write(DATA_MODE, *string++);
+    while (*string != 0){ // Last character in a C-language string is alway "0" (ASCII NULL character)
+        lcd8bits_write(DATA_MODE, *string);
+        string++;
+    }
 }
 
 //TODO Add fucntions that manipulate address to change line and position on screen when we want or just display things where we want them

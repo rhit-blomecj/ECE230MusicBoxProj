@@ -90,6 +90,8 @@ void main(void)
 
 	NoteDurationSetup();
 
+	lcd8bits_init();
+
 	//Stepper Setup START
 	initStepperMotor(Stepper1_port, Stepper1);
 	initStepperTimer();
@@ -102,6 +104,16 @@ void main(void)
     Songs = createSongsArray();
 
     activeSong = Songs[activeSongIndex];
+
+    lcd_clear();
+
+
+    lcd_SetLineNumber(0x00);// first line addr
+    lcd_puts(activeSong.Title);
+
+
+    lcd_SetLineNumber(0x40);// second line addr
+    lcd_puts(activeSong.Artist);
 
 	bpm = activeSong.bpm;//bpm->rpm 240=12 40 =2 so bpm/20 = rpm
     onebeatticks = (int)((60.0/(float)bpm)*(float)NoteDurationTimerFreq);//initialization needed to wait until here TODO  make functions to do this and do this when bpm switches
