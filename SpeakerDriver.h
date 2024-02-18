@@ -20,5 +20,8 @@ extern void playFrequency(int SpeakNum, float Freq);
 extern void initSpeaker(DIO_PORT_Even_Interruptable_Type* port, char PinBitmask);
 extern void initSpeakerFreqTimer();
 
+extern void stopAllSpeakers(void);
+extern void startAllSpeakers(void);
+
 
 #endif /* SPEAKERDRIVER_H_ */

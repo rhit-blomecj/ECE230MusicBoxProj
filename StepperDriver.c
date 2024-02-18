@@ -321,6 +321,9 @@ void TA3_N_IRQHandler(void)//TODO if I want to use the n handler change this
             StepperTimer->CCTL[1] &= ~TIMER_A_CCTLN_CCIFG;
             StepperTimer -> CCR[1] += stepper1Period;//add number of ticks so it will repeat freq
             step(Stepper1_port, Stepper1);//technically this is not generalized in the way I was aiming for but I'll work on that if I have time at the end of the project
+#ifdef VERIFICATION_H_
+        toggleGreen();//allows verification of stepper speed (basically verify how long it takes to do certain number of steps)
+#endif
         }
     #endif
 

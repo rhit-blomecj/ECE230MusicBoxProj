@@ -29,6 +29,5 @@
 #define bpmTorpmConst 20
 
 
-typedef enum _BoxState {Closed, Open} BoxState;//box enum
 
 #endif /* MAIN_H_ */

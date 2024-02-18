@@ -9,7 +9,7 @@
 int bpm = 0;//TODO assign init values
 int onebeatticks = 0;//equation to give ticks per beat
 
-BoxState boxState;
+SwitchState Switch1State = Pressed;
 
 int currentSopranoNote = 0;
 int currentAltoNote = 0;
@@ -21,9 +21,6 @@ Song* Songs;
 int activeSongIndex = 0;
 
 Song activeSong;
-
-
-
 
 //float activeSopranoNotes[] = {C4, R, C6, C7,
 //                              NULL};
@@ -48,10 +45,20 @@ Song activeSong;
 //float activeBassDurations[] = {2, 2, 2, 2,
 //                               NULL};
 
-//might just use onebeatticks for ticks to spin the stepper to but remove some amount of prescalar so it moves like 5 times faster or something
 
-//TODO file in out maybe
+void SongPause(void){
+    NoteDurationTimer->CTL &= ~(TIMER_A_CTL_MC_2 | TIMER_A_CTL_CLR);//set Duration timer to stop mode
 
+
+    stopAllSpeakers();
+}
+
+void SongPlay(void){
+    startAllSpeakers();
+
+    NoteDurationTimer->CTL |= TIMER_A_CTL_MC_2;//set duration timer to Continuous
+
+}
 
 //TODO create Timerinit for Note Duration Timer
 void NoteDurationSetup(void){
@@ -77,9 +84,45 @@ void NoteDurationSetup(void){
     NVIC->ISER[0] |= 1<<TA2_N_IRQn;//NVIC enable interrupt
 }
 
+void displaySongAndArtistName(void){
+    //START LCD COMMANDS
+       lcd_clear();
+
+       lcd_SetLineNumber(0x00);// first line addr
+       lcd_puts(activeSong.Title);
+
+       lcd_SetLineNumber(0x40);// second line addr
+       lcd_puts(activeSong.Artist);
+   //END LCD COMMANDS
+}
+
+void setBPM(void){
+    bpm = activeSong.bpm;//bpm->rpm 240=12 40 =2 so bpm/20 = rpm of stepperMotor
+    onebeatticks = (int)((60.0/(float)bpm)*(float)NoteDurationTimerFreq);
+
+    setRPM(((float)bpm/(float)bpmTorpmConst), Stepper1);
+}
+
+void setSongCCRs(void){
+      playFrequency(Soprano, activeSong.SopranoNotes[currentSopranoNote]);
+      playFrequency(Alto, activeSong.AltoNotes[currentAltoNote]);
+      playFrequency(Tenor, activeSong.TenorNotes[currentTenorNote]);
+      playFrequency(Bass, activeSong.BassNotes[currentBassNote]);
+
+      NoteDurationTimer->CCR[4] += (int) ((float)onebeatticks*activeSong.SopranoDurations[currentSopranoNote]);
+      NoteDurationTimer->CCR[3] += (int) ((float)onebeatticks*activeSong.AltoDurations[currentAltoNote]);
+      NoteDurationTimer->CCR[2] += (int) ((float)onebeatticks*activeSong.TenorDurations[currentTenorNote]);
+      NoteDurationTimer->CCR[1] += (int) ((float)onebeatticks*activeSong.BassDurations[currentBassNote]);
+}
+
 void main(void)
 {
 	WDT_A->CTL = WDT_A_CTL_PW | WDT_A_CTL_HOLD;		// stop watchdog timer
+
+#ifdef VERIFICATION_H_
+	initVerificationLEDs();
+#endif
+
 	//Speaker Setup START
 	initSpeaker(SpeakerPort, Soprano);//call for all 4 speakers
 	initSpeaker(SpeakerPort, Alto);
@@ -103,60 +146,66 @@ void main(void)
     //need to do this to start the song
     Songs = createSongsArray();
 
-    activeSong = Songs[activeSongIndex];
-
-    lcd_clear();
-
-
-    lcd_SetLineNumber(0x00);// first line addr
-    lcd_puts(activeSong.Title);
-
-
-    lcd_SetLineNumber(0x40);// second line addr
-    lcd_puts(activeSong.Artist);
-
-	bpm = activeSong.bpm;//bpm->rpm 240=12 40 =2 so bpm/20 = rpm
-    onebeatticks = (int)((60.0/(float)bpm)*(float)NoteDurationTimerFreq);//initialization needed to wait until here TODO  make functions to do this and do this when bpm switches
-
-    setRPM(((float)bpm/(float)bpmTorpmConst), Stepper1);
-
-
-
-    playFrequency(Soprano, activeSong.SopranoNotes[currentSopranoNote]);
-    playFrequency(Alto, activeSong.AltoNotes[currentAltoNote]);
-    playFrequency(Tenor, activeSong.TenorNotes[currentTenorNote]);
-    playFrequency(Bass, activeSong.BassNotes[currentBassNote]);
-
-
-    NoteDurationTimer->CCR[4] += (int) ((float)onebeatticks*activeSong.SopranoDurations[currentSopranoNote]);
-    NoteDurationTimer->CCR[3] += (int) ((float)onebeatticks*activeSong.AltoDurations[currentAltoNote]);
-    NoteDurationTimer->CCR[2] += (int) ((float)onebeatticks*activeSong.TenorDurations[currentTenorNote]);
-    NoteDurationTimer->CCR[1] += (int) ((float)onebeatticks*activeSong.BassDurations[currentBassNote]);
 
 
 	//MagnetSwitchSetup
 	SwitchInit(MagnetSwitchPort, MagnetSwitchPin);
 
-
+	Switch1State = CheckSwitch(MagnetSwitchPort, MagnetSwitchPin);
 
 	while(1){
-	    if(boxState==Closed){//Box closed needs enum defined and should be public
+
+
+
+	    if(Switch1State == Pressed){//these if statements should probably not be needed but I will keeep them because I think it makes it more explicit what state operations should occur in
 	        //All Speaker Timers to Stop Mode including frequency stuff
+	           SongPause();
 
+	           disableStepperMotor(Stepper1_port, Stepper1);
+
+	           activeSongIndex++;
+
+	           //Set active song
+	           activeSong = Songs[activeSongIndex];
+
+	           //Set active notes to beginning of song
+	           currentSopranoNote = 0;
+	           currentAltoNote = 0;
+	           currentTenorNote = 0;
+	           currentBassNote = 0;
+
+	           //displays song name and artist to the LCD
+	           displaySongAndArtistName();
+
+	           //sets bpm and the values that are based on bpm (like rpm of Stepper)
+	           setBPM();
+
+	           //sets interrupt thresholds for both duration and calls playFrequency on active notes
+	           setSongCCRs();
 	    }
-	    if(boxState==Open){//might be able to just make this an else statement
-	        //set timers back to continuous mode
+	    SwitchDebounce();//debounce for after "press"/box close
+
+	    while(Switch1State == Pressed){//check for state change
+	        Switch1State = CheckSwitch(MagnetSwitchPort, MagnetSwitchPin);
 	    }
 
-//	    if(buttonPressed){ not yet decided but this might be a song switch
-//
-//	    }
+	    if(Switch1State == NotPressed){
+	        SongPlay();
+
+           enableStepperMotor(Stepper1_port, Stepper1);
+	    }
+	    SwitchDebounce();//debounce for after "release"/box open
+
+	    while(Switch1State == NotPressed){//check for state change
+	                Switch1State = CheckSwitch(MagnetSwitchPort, MagnetSwitchPin);
+        }
+
 	}
 
 }
 
-//int currentNote = 0; defined above
-//int onebeatticks =0; defined above
+//currentNote defined above
+//onebeatticks defined above
 
 char insert_rest_soprano = 1;
 char insert_rest_alto = 1;
@@ -173,6 +222,11 @@ void TA2_N_IRQHandler(void){
     //Soprano
     if(SopInt){
         NoteDurationTimer->CCTL[4] &= ~TIMER_A_CCTLN_CCIFG;//clear flag
+
+#ifdef VERIFICATION_H_
+        toggleRed();//allows verification of soprano note lengths
+#endif
+
 
         if(!insert_rest_soprano){//check if we need to
             currentSopranoNote ++;

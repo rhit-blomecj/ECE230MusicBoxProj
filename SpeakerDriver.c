@@ -50,13 +50,13 @@ void initSpeakerFreqTimer(void){//
     #ifdef Speaker1
         SpeakerFreqTimer->CCTL[1] = TIMER_A_CCTLN_OUTMOD_4 | TIMER_A_CCTLN_CCIE;//OUTMOD TOGGLE Interupt enabled
         Speaker1Ticks = 0;
-        playFrequency(Speaker1, G4);
+//        playFrequency(Speaker1, G4);
     #endif
 
     #ifdef Speaker2
         SpeakerFreqTimer->CCTL[2] = TIMER_A_CCTLN_OUTMOD_4  | TIMER_A_CCTLN_CCIE;
         Speaker2Ticks = 0;
-        playFrequency(Speaker2, E4);
+//        playFrequency(Speaker2, E4);
     #endif
 
     #ifdef Speaker3
@@ -68,25 +68,25 @@ void initSpeakerFreqTimer(void){//
     #ifdef Speaker4
         SpeakerFreqTimer->CCTL[4] = TIMER_A_CCTLN_OUTMOD_4 | TIMER_A_CCTLN_CCIE;
         Speaker4Ticks = 0;
-        playFrequency(Speaker4, G3);
+//        playFrequency(Speaker4, G3);
     #endif
 
     #ifdef Speaker5
         SpeakerFreqTimer->CCTL[5] = TIMER_A_CCTLN_OUTMOD_4 | TIMER_A_CCTLN_CCIE;
         Speaker5Ticks = 0;
-        playFrequency(Speaker5, E3);
+//        playFrequency(Speaker5, E3);
     #endif
 
     #ifdef Speaker6
         SpeakerFreqTimer->CCTL[6] = TIMER_A_CCTLN_OUTMOD_4 | TIMER_A_CCTLN_CCIE;
         Speaker6Ticks = 0;
-        playFrequency(Speaker6, C2);
+//        playFrequency(Speaker6, C2);
     #endif
         //this should be good for now currently my plan is to not care about CCR[0] because it needs a separate interrupt handler
 
     // prescale of 48
     //experiment with adding this I think this is the overflow flag but if other things break then I can put it back TIMER_A_CTL_IE
-    SpeakerFreqTimer->CTL = TIMER_A_CTL_MC_2 | TIMER_A_CTL_ID_3 | TIMER_A_CTL_TASSEL_2 | TIMER_A_CTL_CLR;//bitmask to set MC to be UP counter TASSEL to use SMCLCK prescalar 4
+    SpeakerFreqTimer->CTL = TIMER_A_CTL_MC_2 | TIMER_A_CTL_ID_3 | TIMER_A_CTL_TASSEL_2 | TIMER_A_CTL_CLR;//bitmask to set MC to be Continuous counter TASSEL to use SMCLCK prescalar 4
     SpeakerFreqTimer->EX0 = TIMER_A_EX0_IDEX__6;
 
     configHFXT();
@@ -94,6 +94,14 @@ void initSpeakerFreqTimer(void){//
         //TODO might need to add NVIC assignments I would actually have to read up on that to see if that is a global interrupt enable thing or if I need to flip one of the bits for each of the CCR units
 }
 
+
+void stopAllSpeakers(void){
+    SpeakerFreqTimer->CTL &= ~(TIMER_A_CTL_MC_2 | TIMER_A_CTL_CLR);// sets timer to stop mode and clrs TAxR
+}
+
+void startAllSpeakers(void){
+    SpeakerFreqTimer->CTL |= TIMER_A_CTL_MC_2;// sets timer to continuous mode
+}
 
 
 /*
