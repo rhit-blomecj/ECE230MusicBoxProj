@@ -835,6 +835,6 @@ Song* createSongsArray(void){
     ImperialMarch.BassDurations = ImperialMarchBassDur;
 
 
-    Song Songs[] = {ImperialMarch, BelleMama, CarolOfTheBells, NULLSONG};//TO DETECT NULLSONG just check if (Title == NULL) if yes then set activesongindex to 0
+    Song Songs[] = {ImperialMarch, BelleMama, CarolOfTheBells, NULLSONG};//TO DETECT NULLSONG just check if (Title == NULL)
     return Songs;
 }

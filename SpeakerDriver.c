@@ -1,4 +1,4 @@
-/* TODO more code documentation
+/*
  * SpeakerDriver.c
  *
  * You need to #define SpeakerFreqTimer as one of the A timers so we can set it up properly
@@ -45,18 +45,16 @@
    int Speaker6Ticks;
 #endif
 
-void initSpeakerFreqTimer(void){//
+void initSpeakerFreqTimer(void){
 
     #ifdef Speaker1
         SpeakerFreqTimer->CCTL[1] = TIMER_A_CCTLN_OUTMOD_4 | TIMER_A_CCTLN_CCIE;//OUTMOD TOGGLE Interupt enabled
         Speaker1Ticks = 0;
-//        playFrequency(Speaker1, G4);
     #endif
 
     #ifdef Speaker2
         SpeakerFreqTimer->CCTL[2] = TIMER_A_CCTLN_OUTMOD_4  | TIMER_A_CCTLN_CCIE;
         Speaker2Ticks = 0;
-//        playFrequency(Speaker2, E4);
     #endif
 
     #ifdef Speaker3
@@ -68,21 +66,17 @@ void initSpeakerFreqTimer(void){//
     #ifdef Speaker4
         SpeakerFreqTimer->CCTL[4] = TIMER_A_CCTLN_OUTMOD_4 | TIMER_A_CCTLN_CCIE;
         Speaker4Ticks = 0;
-//        playFrequency(Speaker4, G3);
     #endif
 
     #ifdef Speaker5
         SpeakerFreqTimer->CCTL[5] = TIMER_A_CCTLN_OUTMOD_4 | TIMER_A_CCTLN_CCIE;
         Speaker5Ticks = 0;
-//        playFrequency(Speaker5, E3);
     #endif
 
     #ifdef Speaker6
         SpeakerFreqTimer->CCTL[6] = TIMER_A_CCTLN_OUTMOD_4 | TIMER_A_CCTLN_CCIE;
         Speaker6Ticks = 0;
-//        playFrequency(Speaker6, C2);
     #endif
-        //this should be good for now currently my plan is to not care about CCR[0] because it needs a separate interrupt handler
 
     // prescale of 48
     //experiment with adding this I think this is the overflow flag but if other things break then I can put it back TIMER_A_CTL_IE
@@ -90,8 +84,8 @@ void initSpeakerFreqTimer(void){//
     SpeakerFreqTimer->EX0 = TIMER_A_EX0_IDEX__6;
 
     configHFXT();
-    NVIC->ISER[0] |= 1<<TA0_N_IRQn;//TODO generalize later
-        //TODO might need to add NVIC assignments I would actually have to read up on that to see if that is a global interrupt enable thing or if I need to flip one of the bits for each of the CCR units
+    //would want to generalize using #if and timers
+    NVIC->ISER[0] |= 1<<TA0_N_IRQn;
 }
 
 
@@ -106,8 +100,8 @@ void startAllSpeakers(void){
 
 /*
  *
+ *
  */
-//TODO create initSpeaker(Port#, PinBitmask) you will need to init each speaker individually
 void initSpeaker(DIO_PORT_Even_Interruptable_Type* port, char PinBitmask){
 
     port->DIR |= PinBitmask;            // set pin as output
@@ -124,9 +118,8 @@ int freqToTicks(float Freq){
     return (int)(SpeakerFreqClockFreq/Freq);
 }
 
-//TODO create playFrequency(int CCRnumber(basically must be speaker number), Freq) to enable note changing
 void playFrequency(int SpeakNum, float Freq){
-    switch (SpeakNum){//TODO: add case 0 later for if we get around to setting up CCR0 support
+    switch (SpeakNum){
 #ifdef Speaker1
     case Speaker1:
         Speaker1Ticks = freqToTicks(Freq)/2;
@@ -169,7 +162,6 @@ void playFrequency(int SpeakNum, float Freq){
     }
 }
 
-//TODO Create Freq ISR/ISRs if we use both CCR0 and any of the other ones
 //ISR FLOW
 //  if/switch statement to choose the proper CCR unit
 //  clear appropriate int Flag

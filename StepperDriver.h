@@ -10,8 +10,8 @@
 
 #include "global.h"
 
-//#define INIT_PERIOD                     29297//TODO Change these values
-#define STEP_SEQ_CNT                    4//TODO Change these values
+
+#define STEP_SEQ_CNT                    4//full step one-phase drive mode
 #define StepperTimerFreq 32768//Hz
 #define rpmConstant (StepperTimerFreq*60)/(32*64)
 

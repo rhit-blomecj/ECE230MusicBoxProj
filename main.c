@@ -1,13 +1,13 @@
 
 
 /**
- * TODO: Main program logic goes in this file each individual function of our drivers should be handled in their individual Driver Files
+ *
  * main.c
  */
 #include "main.h"
 
-int bpm = 0;//TODO assign init values
-int onebeatticks = 0;//equation to give ticks per beat
+int bpm = 0;
+int onebeatticks = 0;
 
 SwitchState Switch1State = Pressed;
 
@@ -60,7 +60,6 @@ void SongPlay(void){
 
 }
 
-//TODO create Timerinit for Note Duration Timer
 void NoteDurationSetup(void){
     configLFXT();//setup Timer A
 
@@ -165,8 +164,14 @@ void main(void)
 
 	           activeSongIndex++;
 
+
 	           //Set active song
 	           activeSong = Songs[activeSongIndex];
+
+	           if(activeSong.Title == NULL){
+	               activeSongIndex = 0;
+	               activeSong = Songs[activeSongIndex];//this assumes that there is at least one song in the Songs array
+	           }
 
 	           //Set active notes to beginning of song
 	           currentSopranoNote = 0;
@@ -213,7 +218,6 @@ char insert_rest_tenor = 1;
 char insert_rest_bass = 1;
 
 
-//TODO Create ISR for Note Durations
 void TA2_N_IRQHandler(void){
     char SopInt = NoteDurationTimer->CCTL[4] & TIMER_A_CCTLN_CCIFG;
     char AltInt = NoteDurationTimer->CCTL[3] & TIMER_A_CCTLN_CCIFG;

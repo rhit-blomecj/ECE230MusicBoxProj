@@ -36,8 +36,4 @@ typedef struct _Song {
 extern Song* createSongsArray(void);
 
 
-//initialize 4 songs
-//Song Songs[] = {CarolOfTheBells};
-
-
 #endif /* SONGS_H_ */

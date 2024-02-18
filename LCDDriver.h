@@ -10,7 +10,6 @@
 
 #include "global.h"
 #define LCDCMD_ClearDisplay     0x01    //clear display: clear, move cursor home
-#define LCDCMD_Home             0x02
 #define LCDCMD_EMS              0x06    //entry mode set: auto increment cursor after each char sent
 #define LCDCMD_DisplaySettings  0x0C    //display ON/OFF control: display on, cursor off, blink off
 #define LCDCMD_FunctionSet      0x38    //function set: 8-bit mode, 2 lines, 5x7 dots

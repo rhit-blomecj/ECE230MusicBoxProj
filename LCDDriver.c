@@ -11,9 +11,7 @@
 
 #define Set_Enable_Low  LCDControlPort->OUT =  (LCDControlPort->OUT) & ~(LCDEPin);
 #define Set_Enable_High  LCDControlPort->OUT =  (LCDControlPort->OUT) | (LCDEPin);
-//TODO LCDconfig(#LCDPort)
 
-//TODO LCDinit(#LCDPort) this should run the initialization commands I didn't get 4 bit to work so we are just doing an 8 bit driver unfortunately
 void lcd8bits_init(void)
 {
     LCDControlPort->DIR = LCDControlPort->DIR | ((LCDRSPin) | (LCDEPin));
@@ -43,7 +41,6 @@ void LCD_STROBE(void) {
     Set_Enable_Low
 }
 
-//TODO LCDWrite (#LCDPort, char (just a one byte number), INSTR or DATA modes)
 void lcd8bits_write(unsigned char mode, unsigned char CmdChar) {
     if(mode==CMD_MODE) Set_Command_Mode //LCDControlPort->OUT = (LCDControlPort->OUT) & (~(0b1<<LCDRSPin));
     else {Set_Data_Mode; }
@@ -52,13 +49,10 @@ void lcd8bits_write(unsigned char mode, unsigned char CmdChar) {
     LCD_STROBE(); // Write 8 bits of data on D7-0
 }
 
-//TODO PrintChar(#LCDPort, char); calls LCDWrite with this and DATA mode
 void lcd_putch(char character) {
     lcd8bits_write(DATA_MODE, character);
 }
 
-//TODO PrintString(#LCDPort, char *); iterate through chars calling Print Char allow a certain delay between chars
-//  TODO also enable LCD scrolling if song name or artist name will run off the display (check if the string being sent to LCD will run out of space (maybe make main in charge of this with an interupt handler and make a function that shifts the LCD)
 void lcd_puts(char *string) {
     while (*string != 0){ // Last character in a C-language string is alway "0" (ASCII NULL character)
 //        lcd8bits_write(DATA_MODE, *string);
@@ -67,7 +61,6 @@ void lcd_puts(char *string) {
     }
 }
 
-//TODO Add fucntions that manipulate address to change line and position on screen when we want or just display things where we want them
 
 void lcd_SetLineNumber(unsigned char position) {
     lcd8bits_write(CMD_MODE, 0x80 | position); // The "cursor move" command is indicated by MSB=1 (0x80)
@@ -77,11 +70,6 @@ void lcd_SetLineNumber(unsigned char position) {
 
 void lcd_clear(void) {
     lcd8bits_write(CMD_MODE, LCDCMD_ClearDisplay);
-    DelayMs(2);
-}
-
-void lcd_home(void) {
-    lcd8bits_write(CMD_MODE, LCDCMD_Home);
     DelayMs(2);
 }
 
