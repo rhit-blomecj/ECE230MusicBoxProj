@@ -90,7 +90,7 @@ void initSpeakerFreqTimer(void){
 
 
 void stopAllSpeakers(void){
-    SpeakerFreqTimer->CTL &= ~(TIMER_A_CTL_MC_2);// sets timer to stop mode and clrs TAxR  | TIMER_A_CTL_CLR brb
+    SpeakerFreqTimer->CTL &= ~(TIMER_A_CTL_MC_2  | TIMER_A_CTL_CLR);// sets timer to stop mode and clrs all TAxRs
 }
 
 void startAllSpeakers(void){

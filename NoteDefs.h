@@ -9,11 +9,11 @@
 #define NOTEDEFS_H_
 //DONE add Note Frequencies so our Music can use these defines to have proper values
 //https://mixbutton.com/mixing-articles/music-note-to-frequency-chart/
-#define R 30000 //Hz this should be out of human hearing range so maybe this will work?
+#define R 30000 //Hz this should be out of human hearing range so this is used for Rests
 
 #define A0 27.50 //Hz
 #define AS0 29.14 //Hz
-#define B0 30.87 //Hz //cutoff here
+#define B0 30.87 //Hz
 #define C1 32.70 //Hz
 #define CS1 34.65 //Hz
 #define D1 36.71 //Hz
@@ -86,7 +86,7 @@
 #define A6 1760.00 //Hz
 #define AS6 1864.66 //Hz
 #define B6 1975.53 //Hz
-#define C7 2093.00 //Hz //7s aren't working
+#define C7 2093.00 //Hz
 #define CS7 2217.46 //Hz
 #define D7 2349.32 //Hz
 #define DS7 2489.02 //Hz

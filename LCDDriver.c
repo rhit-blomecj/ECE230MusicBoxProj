@@ -14,9 +14,10 @@
 
 void lcd8bits_init(void)
 {
-    LCDControlPort->DIR = LCDControlPort->DIR | ((LCDRSPin) | (LCDEPin));
-    LCDControlPort->SEL0 = LCDControlPort->SEL0 & (~(LCDRSPin) | ~(LCDEPin));
-    LCDControlPort->SEL1 = LCDControlPort->SEL1 & (~(LCDRSPin) | ~(LCDEPin));
+    LCDControlPort->DIR |= (LCDRSPin | LCDEPin);
+    LCDControlPort->SEL0 &=  ~(LCDRSPin | LCDEPin);
+    LCDControlPort->SEL1 &= ~(LCDRSPin | LCDEPin);
+
     LCDDataPort->DIR = 0b11111111;
     LCDDataPort->SEL0 = 0b00000000;
     LCDDataPort->SEL1 = 0b00000000;

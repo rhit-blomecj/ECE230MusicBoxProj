@@ -22,32 +22,36 @@ int activeSongIndex = 0;
 
 Song activeSong;
 
-//float activeSopranoNotes[] = {C4, R, C6, C7,
+char insert_rest_soprano = 1;
+char insert_rest_alto = 1;
+char insert_rest_tenor = 1;
+char insert_rest_bass = 1;
+
+
+//Might use as a verification song to test durations, rest inserts, and frequency of note
+//float activeSopranoNotes[] = {C4,
 //                              NULL};
-//float activeSopranoDurations[] = {2, 2, 2, 2,
+//float activeSopranoDurations[] = {1,
 //                                  NULL};
 //
-//
-//float activeAltoNotes[] = {E4, R, E6, E7,
+//float activeAltoNotes[] = {E4,
 //                           NULL};
-//float activeAltoDurations[] = {2, 2, 2, 2,
+//float activeAltoDurations[] = {1,
 //                               NULL};
 //
-//
-//float activeTenorNotes[] = {G4, R, G6, G7,
+//float activeTenorNotes[] = {G4,
 //                            NULL};
-//float activeTenorDurations[] = {2, 2, 2, 2,
+//float activeTenorDurations[] = {1,
 //                                NULL};
 //
-//
-//float activeBassNotes[] = {B4, R, B6, B7,
+//float activeBassNotes[] = {B4,
 //                           NULL};
-//float activeBassDurations[] = {2, 2, 2, 2,
+//float activeBassDurations[] = {1,
 //                               NULL};
 
 
 void SongPause(void){
-    NoteDurationTimer->CTL &= ~(TIMER_A_CTL_MC_2 );//set Duration timer to stop mode | TIMER_A_CTL_CLR brb
+    NoteDurationTimer->CTL &= ~(TIMER_A_CTL_MC_2 | TIMER_A_CTL_CLR);//set Duration timer to stop mode
 
 
     stopAllSpeakers();
@@ -103,10 +107,6 @@ void setBPM(void){
 }
 
 void setSongCCRs(void){
-    initSpeakerFreqTimer();
-        //Speaker Setup END
-
-        NoteDurationSetup();
 
       playFrequency(Soprano, activeSong.SopranoNotes[currentSopranoNote]);
       playFrequency(Alto, activeSong.AltoNotes[currentAltoNote]);
@@ -144,12 +144,11 @@ void main(void)
 	initStepperTimer();
 	//Stepper Setup END
 
-//	NVIC->ISER[0] |= 0x0010;
 
 	__enable_irq();                 // Enable global interrupt
 
 
-    //need to do this to start the song
+    //initializes songs array
 	createSongsArray(Songs);
 
 
@@ -161,9 +160,9 @@ void main(void)
 	//Set active song
    activeSong = Songs[activeSongIndex];
 
-   if(activeSong.Title == NULL){
+   if(activeSong.Title == NULL){//we use a NULL song at the end of the array to check the end of the array
        activeSongIndex = 0;
-       activeSong = Songs[activeSongIndex];//this assumes that there is at least one song in the Songs array
+       activeSong = Songs[activeSongIndex];//this assumes that there is at least one Not NULL song in the Songs array
    }
 
    //Set active notes to beginning of song
@@ -181,20 +180,14 @@ void main(void)
    //sets interrupt thresholds for both duration and calls playFrequency on active notes
    setSongCCRs();
 
-
-
-
 	Switch1State = CheckSwitch(MagnetSwitchPort, MagnetSwitchPin);
 
 	while(1){
-
-
-
 	    if(Switch1State == Pressed){//these if statements should probably not be needed but I will keeep them because I think it makes it more explicit what state operations should occur in
 	        //All Speaker Timers to Stop Mode including frequency stuff
 	           SongPause();
 
-	           disableStepperMotor(Stepper1_port, Stepper1);//brb
+	           disableStepperMotor(Stepper1_port, Stepper1);
 
 	           activeSongIndex++;
 
@@ -212,6 +205,12 @@ void main(void)
 	           currentAltoNote = 0;
 	           currentTenorNote = 0;
 	           currentBassNote = 0;
+
+	           //this is just setting this value so its consistant with how songs start (it adds the division between notes)
+	           insert_rest_soprano = 1;
+	           insert_rest_alto = 1;
+	           insert_rest_tenor = 1;
+	           insert_rest_bass = 1;
 
 	           //displays song name and artist to the LCD
 	           displaySongAndArtistName();
@@ -231,7 +230,7 @@ void main(void)
 	    if(Switch1State == NotPressed){
 	        SongPlay();
 
-           enableStepperMotor(Stepper1_port, Stepper1);//brbd
+           enableStepperMotor(Stepper1_port, Stepper1);
 	    }
 	    SwitchDebounce();//debounce for after "release"/box open
 
@@ -243,14 +242,15 @@ void main(void)
 
 }
 
+
+
+//global initialization of this so they are static by default they are used primarily in the interrupt handler and are reset when song is switched in main
 //currentNote defined above
 //onebeatticks defined above
-
-char insert_rest_soprano = 1;
-char insert_rest_alto = 1;
-char insert_rest_tenor = 1;
-char insert_rest_bass = 1;
-
+//insert_rest_soprano defined above
+//insert_rest_alto
+//insert_rest_tenor
+//insert_rest_bass
 
 void TA2_N_IRQHandler(void){
     char SopInt = NoteDurationTimer->CCTL[4] & TIMER_A_CCTLN_CCIFG;

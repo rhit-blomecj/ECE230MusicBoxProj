@@ -806,49 +806,13 @@ const Song ImperialMarch = {"Imperial March", "John Williams & Rodrigo Prado", 1
 const Song NULLSONG ={NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL} ;
 
 
-// const Song Songs_ [] = {BelleMama, ImperialMarch, CarolOfTheBells, NULLSONG};
+
 
 void createSongsArray(Song* Songs){
-//    CarolOfTheBells.Title = "Carol Of The Bells";
-//    CarolOfTheBells.Artist = "M. Leontovich";
-//    CarolOfTheBells.bpm =  140;
-//    CarolOfTheBells.SopranoNotes = CarolSopranoNote;
-//    CarolOfTheBells.SopranoDurations = CarolSopranoDur;
-//    CarolOfTheBells.AltoNotes = CarolAltoNote;
-//    CarolOfTheBells.AltoDurations =  CarolAltoDur;
-//    CarolOfTheBells.TenorNotes = CarolTenorNote;
-//    CarolOfTheBells.TenorDurations = CarolTenorDur;
-//    CarolOfTheBells.BassNotes = CarolBassNote;
-//    CarolOfTheBells.BassDurations = CarolBassDur;
-
-//    BelleMama.Title = "Belle Mama";
-//    BelleMama.Artist = "Think Cre8tive";
-//    BelleMama.bpm =  70;
-//    BelleMama.SopranoNotes = BelleSopranoNote;
-//    BelleMama.SopranoDurations = BelleSopranoDur;
-//    BelleMama.AltoNotes = BelleAltoNote;
-//    BelleMama.AltoDurations =  BelleAltoDur;
-//    BelleMama.TenorNotes = BelleTenorNote;
-//    BelleMama.TenorDurations = BelleTenorDur;
-//    BelleMama.BassNotes = BelleBassNote;
-//    BelleMama.BassDurations = BelleBassDur;
-
-//    ImperialMarch.Title = "Imperial March";
-//    ImperialMarch.Artist = "John Williams & Rodrigo Prado";
-//    ImperialMarch.bpm =  103;
-//    ImperialMarch.SopranoNotes = ImperialMarchSopranoNote;
-//    ImperialMarch.SopranoDurations = ImperialMarchSopranoDur;
-//    ImperialMarch.AltoNotes = ImperialMarchAltoNote;
-//    ImperialMarch.AltoDurations =  ImperialMarchAltoDur;
-//    ImperialMarch.TenorNotes = ImperialMarchTenorNote;
-//    ImperialMarch.TenorDurations = ImperialMarchTenorDur;
-//    ImperialMarch.BassNotes = ImperialMarchBassNote;
-//    ImperialMarch.BassDurations = ImperialMarchBassDur;
-
+   //intializing the Song[] Songs = {BelleMama, ImperialMarch, CarolOfTheBells, NULLSONG};
    Songs[0] = BelleMama;
    Songs[1] = ImperialMarch;
    Songs[2] = CarolOfTheBells;
    Songs[3] = NULLSONG;
 
-    //TO DETECT NULLSONG just check if (Title == NULL)
 }
