@@ -47,7 +47,7 @@ Song activeSong;
 
 
 void SongPause(void){
-    NoteDurationTimer->CTL &= ~(TIMER_A_CTL_MC_2 | TIMER_A_CTL_CLR);//set Duration timer to stop mode
+    NoteDurationTimer->CTL &= ~(TIMER_A_CTL_MC_2 );//set Duration timer to stop mode | TIMER_A_CTL_CLR brb
 
 
     stopAllSpeakers();
@@ -103,15 +103,15 @@ void setBPM(void){
 }
 
 void setSongCCRs(void){
+      NoteDurationTimer->CCR[4] += (int) (onebeatticks*activeSong.SopranoDurations[currentSopranoNote]);
+      NoteDurationTimer->CCR[3] += (int) (onebeatticks*activeSong.AltoDurations[currentAltoNote]);
+      NoteDurationTimer->CCR[2] += (int) (onebeatticks*activeSong.TenorDurations[currentTenorNote]);
+      NoteDurationTimer->CCR[1] += (int) (onebeatticks*activeSong.BassDurations[currentBassNote]);
+
       playFrequency(Soprano, activeSong.SopranoNotes[currentSopranoNote]);
       playFrequency(Alto, activeSong.AltoNotes[currentAltoNote]);
       playFrequency(Tenor, activeSong.TenorNotes[currentTenorNote]);
       playFrequency(Bass, activeSong.BassNotes[currentBassNote]);
-
-      NoteDurationTimer->CCR[4] += (int) ((float)onebeatticks*activeSong.SopranoDurations[currentSopranoNote]);
-      NoteDurationTimer->CCR[3] += (int) ((float)onebeatticks*activeSong.AltoDurations[currentAltoNote]);
-      NoteDurationTimer->CCR[2] += (int) ((float)onebeatticks*activeSong.TenorDurations[currentTenorNote]);
-      NoteDurationTimer->CCR[1] += (int) ((float)onebeatticks*activeSong.BassDurations[currentBassNote]);
 }
 
 void main(void)
@@ -139,6 +139,8 @@ void main(void)
 	initStepperTimer();
 	//Stepper Setup END
 
+//	NVIC->ISER[0] |= 0x0010;
+
 	__enable_irq();                 // Enable global interrupt
 
 
@@ -150,6 +152,33 @@ void main(void)
 	//MagnetSwitchSetup
 	SwitchInit(MagnetSwitchPort, MagnetSwitchPin);
 
+
+	//Set active song
+   activeSong = Songs[activeSongIndex];
+
+   if(activeSong.Title == NULL){
+       activeSongIndex = 0;
+       activeSong = Songs[activeSongIndex];//this assumes that there is at least one song in the Songs array
+   }
+
+   //Set active notes to beginning of song
+   currentSopranoNote = 0;
+   currentAltoNote = 0;
+   currentTenorNote = 0;
+   currentBassNote = 0;
+
+   //displays song name and artist to the LCD
+   displaySongAndArtistName();
+
+   //sets bpm and the values that are based on bpm (like rpm of Stepper)
+   setBPM();
+
+   //sets interrupt thresholds for both duration and calls playFrequency on active notes
+   setSongCCRs();
+
+
+
+
 	Switch1State = CheckSwitch(MagnetSwitchPort, MagnetSwitchPin);
 
 	while(1){
@@ -160,7 +189,7 @@ void main(void)
 	        //All Speaker Timers to Stop Mode including frequency stuff
 	           SongPause();
 
-	           disableStepperMotor(Stepper1_port, Stepper1);
+	           disableStepperMotor(Stepper1_port, Stepper1);//brb
 
 	           activeSongIndex++;
 
@@ -197,7 +226,7 @@ void main(void)
 	    if(Switch1State == NotPressed){
 	        SongPlay();
 
-           enableStepperMotor(Stepper1_port, Stepper1);
+           enableStepperMotor(Stepper1_port, Stepper1);//brbd
 	    }
 	    SwitchDebounce();//debounce for after "release"/box open
 

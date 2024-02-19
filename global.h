@@ -10,7 +10,7 @@
 
 #include "msp.h"
 #include "NoteDefs.h"
-#include "verification.h"
+//#include "verification.h"
 
 
 
@@ -52,7 +52,7 @@
 
 //For magnet switch we want to use P1.5
 #define MagnetSwitchPort P1
-#define MagnetSwitchPin 1<<5
+#define MagnetSwitchPin 1<<4
 
 //Save Timer A2 clockrate and stuff so we can do bpm and duration calculations
 //bpm time needs to be figured out during runtime if I want bpms that can change

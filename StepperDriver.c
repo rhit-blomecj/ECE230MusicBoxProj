@@ -99,106 +99,108 @@ void initStepperMotor(DIO_PORT_Odd_Interruptable_Type* port, int stepperMask) {
 
 void enableStepperMotor(DIO_PORT_Odd_Interruptable_Type* port, int stepperMask) {
     // configure the specific
-   switch (stepperMask){
-   #ifdef Stepper1
-       case Stepper1:
-           StepperTimer->CCTL[1] |= TIMER_A_CCTLN_CCIE;//enable interrupts vs disable interupts
-           stepper1CurrentStep = 0;
-           port->OUT = (port->OUT & ~stepperMask) | stepper1Sequence[stepper1CurrentStep];//clear its outs so we can set the stepper sequence on a clean slate
-           break;
-   #endif
+//   switch (stepperMask){
+//   #ifdef Stepper1
+//       case Stepper1:
+//           StepperTimer->CCTL[1] |= TIMER_A_CCTLN_CCIE;//enable interrupts vs disable interupts
+//           stepper1CurrentStep = 0;
+//           port->OUT = (port->OUT & ~stepperMask) | stepper1Sequence[stepper1CurrentStep];//clear its outs so we can set the stepper sequence on a clean slate
+//           break;
+//   #endif
+//
+//   #ifdef Stepper2
+//       case Stepper2:
+//           StepperTimer->CCTL[2] |= TIMER_A_CCTLN_CCIE;
+//           stepper2CurrentStep = 0;
+//           port->OUT = (port->OUT & ~stepperMask) | stepper2Sequence[stepper2CurrentStep];
+//           break;
+//   #endif
+//
+//   #ifdef Stepper3
+//       case Stepper3:
+//           StepperTimer->CCTL[3] |= TIMER_A_CCTLN_CCIE;
+//           stepper3CurrentStep = 0;
+//           port->OUT = (port->OUT & ~stepperMask) | stepper3Sequence[stepper3CurrentStep];
+//           break;
+//   #endif
+//
+//   #ifdef Stepper4
+//       case Stepper4:
+//           StepperTimer->CCTL[4] |= TIMER_A_CCTLN_CCIE;
+//           stepper4CurrentStep = 0;
+//           port->OUT = (port->OUT & ~stepperMask) | stepper4Sequence[stepper4CurrentStep];
+//           break;
+//   #endif
+//
+//   #ifdef Stepper5
+//       case Stepper5:
+//           StepperTimer->CCTL[5] |= TIMER_A_CCTLN_CCIE;
+//           stepper5CurrentStep = 0;
+//           port->OUT = (port->OUT & ~stepperMask) | stepper5Sequence[stepper5CurrentStep];
+//           break;
+//   #endif
+//
+//   #ifdef Stepper6
+//       case Stepper6:
+//           StepperTimer->CCTL[6] |= TIMER_A_CCTLN_CCIE;
+//           stepper6CurrentStep = 0;
+//           port->OUT = (port->OUT & ~stepperMask) | stepper6Sequence[stepper6CurrentStep];
+//           break;
+//   #endif
+//
+//       default:
+//           break;
+//       }
 
-   #ifdef Stepper2
-       case Stepper2:
-           StepperTimer->CCTL[2] |= TIMER_A_CCTLN_CCIE;
-           stepper2CurrentStep = 0;
-           port->OUT = (port->OUT & ~stepperMask) | stepper2Sequence[stepper2CurrentStep];
-           break;
-   #endif
-
-   #ifdef Stepper3
-       case Stepper3:
-           StepperTimer->CCTL[3] |= TIMER_A_CCTLN_CCIE;
-           stepper3CurrentStep = 0;
-           port->OUT = (port->OUT & ~stepperMask) | stepper3Sequence[stepper3CurrentStep];
-           break;
-   #endif
-
-   #ifdef Stepper4
-       case Stepper4:
-           StepperTimer->CCTL[4] |= TIMER_A_CCTLN_CCIE;
-           stepper4CurrentStep = 0;
-           port->OUT = (port->OUT & ~stepperMask) | stepper4Sequence[stepper4CurrentStep];
-           break;
-   #endif
-
-   #ifdef Stepper5
-       case Stepper5:
-           StepperTimer->CCTL[5] |= TIMER_A_CCTLN_CCIE;
-           stepper5CurrentStep = 0;
-           port->OUT = (port->OUT & ~stepperMask) | stepper5Sequence[stepper5CurrentStep];
-           break;
-   #endif
-
-   #ifdef Stepper6
-       case Stepper6:
-           StepperTimer->CCTL[6] |= TIMER_A_CCTLN_CCIE;
-           stepper6CurrentStep = 0;
-           port->OUT = (port->OUT & ~stepperMask) | stepper6Sequence[stepper6CurrentStep];
-           break;
-   #endif
-
-       default:
-           break;
-       }
-
-
+    StepperTimer->CTL |= (TIMER_A_CTL_MC_2);
+    stepper1CurrentStep = 0;
+    port->OUT = (port->OUT & ~stepperMask) | stepper1Sequence[stepper1CurrentStep];
 }
 
 void disableStepperMotor(DIO_PORT_Odd_Interruptable_Type* port, int stepperMask) {
 
-    switch (stepperMask){
-    #ifdef Stepper1
-        case Stepper1:
-            StepperTimer->CCTL[1] &= ~TIMER_A_CCTLN_CCIE;//enable interrupts vs disable interupts
-            break;
-    #endif
-
-    #ifdef Stepper2
-        case Stepper2:
-            StepperTimer->CCTL[2] &= ~TIMER_A_CCTLN_CCIE;
-            break;
-    #endif
-
-    #ifdef Stepper3
-        case Stepper3:
-            StepperTimer->CCTL[3] &= ~TIMER_A_CCTLN_CCIE;
-            break;
-    #endif
-
-    #ifdef Stepper4
-        case Stepper4:
-            StepperTimer->CCTL[4] &= ~TIMER_A_CCTLN_CCIE;
-            break;
-    #endif
-
-    #ifdef Stepper5
-        case Stepper5:
-            StepperTimer->CCTL[5] &= ~TIMER_A_CCTLN_CCIE;
-            break;
-    #endif
-
-    #ifdef Stepper6
-        case Stepper6:
-            StepperTimer->CCTL[6] &= ~TIMER_A_CCTLN_CCIE;
-            break;
-    #endif
-        default:
-            break;
-
-
-        }
-
+//    switch (stepperMask){
+//    #ifdef Stepper1
+//        case Stepper1:
+//            StepperTimer->CCTL[1] &= ~TIMER_A_CCTLN_CCIE;//enable interrupts vs disable interupts
+//            break;
+//    #endif
+//
+//    #ifdef Stepper2
+//        case Stepper2:
+//            StepperTimer->CCTL[2] &= ~TIMER_A_CCTLN_CCIE;
+//            break;
+//    #endif
+//
+//    #ifdef Stepper3
+//        case Stepper3:
+//            StepperTimer->CCTL[3] &= ~TIMER_A_CCTLN_CCIE;
+//            break;
+//    #endif
+//
+//    #ifdef Stepper4
+//        case Stepper4:
+//            StepperTimer->CCTL[4] &= ~TIMER_A_CCTLN_CCIE;
+//            break;
+//    #endif
+//
+//    #ifdef Stepper5
+//        case Stepper5:
+//            StepperTimer->CCTL[5] &= ~TIMER_A_CCTLN_CCIE;
+//            break;
+//    #endif
+//
+//    #ifdef Stepper6
+//        case Stepper6:
+//            StepperTimer->CCTL[6] &= ~TIMER_A_CCTLN_CCIE;
+//            break;
+//    #endif
+//        default:
+//            break;
+//
+//
+//        }
+    StepperTimer->CTL &= ~(TIMER_A_CTL_MC_2);
     port->OUT &= ~stepperMask;//clear its outs so we aren't holding a position for no reason
 
 }

@@ -8,7 +8,7 @@
 
 SwitchState CheckSwitch(DIO_PORT_Odd_Interruptable_Type* port, char PinBitmask){
     char switchValue;
-    switchValue = (port-> IN) & PinBitmask;
+    switchValue = (port->IN) & PinBitmask;
 
     if (switchValue==0){
         return Pressed;

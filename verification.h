@@ -10,9 +10,9 @@
 #include "msp.h"
 
 #define verificationLEDPort P2
-#define RED_PIN             1<<1
-#define GREEN_PIN           1<<2
-#define BLUE_PIN            1<<3
+#define RED_PIN             1<<0
+#define GREEN_PIN           1<<1
+#define BLUE_PIN            1<<2
 
 extern void initVerificationLEDs(void);
 

@@ -90,7 +90,7 @@ void initSpeakerFreqTimer(void){
 
 
 void stopAllSpeakers(void){
-    SpeakerFreqTimer->CTL &= ~(TIMER_A_CTL_MC_2 | TIMER_A_CTL_CLR);// sets timer to stop mode and clrs TAxR
+    SpeakerFreqTimer->CTL &= ~(TIMER_A_CTL_MC_2);// sets timer to stop mode and clrs TAxR  | TIMER_A_CTL_CLR brb
 }
 
 void startAllSpeakers(void){
@@ -105,7 +105,7 @@ void startAllSpeakers(void){
 void initSpeaker(DIO_PORT_Even_Interruptable_Type* port, char PinBitmask){
 
     port->DIR |= PinBitmask;            // set pin as output
-    port->SEL1 &= ~PinBitmask;          // Option 0b10 because that is where premapped Timer Outputs are
+    port->SEL1 &= ~PinBitmask;          // Option 0b01 because that is where premapped Timer Outputs are
     port->SEL0 |= PinBitmask;           //
 
     //it is the job of the caller to make sure we are in a mapped pin
@@ -122,44 +122,43 @@ void playFrequency(int SpeakNum, float Freq){
     switch (SpeakNum){
 #ifdef Speaker1
     case Speaker1:
-        Speaker1Ticks = freqToTicks(Freq)/2;
+        Speaker1Ticks = (int) (freqToTicks(Freq)/2);
         break;
 #endif
 
 #ifdef Speaker2
     case Speaker2:
-        Speaker2Ticks = freqToTicks(Freq)/2;
+        Speaker2Ticks = (int) (freqToTicks(Freq)/2);
         break;
 #endif
 
 #ifdef Speaker3
     case Speaker3:
-        Speaker3Ticks = freqToTicks(Freq)/2;
+        Speaker3Ticks = (int) (freqToTicks(Freq)/2);
         break;
 #endif
 
 #ifdef Speaker4
     case Speaker4:
-        Speaker4Ticks = freqToTicks(Freq)/2;
+        Speaker4Ticks = (int) (freqToTicks(Freq)/2);
         break;
 #endif
 
 #ifdef Speaker5
     case Speaker5:
-        Speaker5Ticks = freqToTicks(Freq)/2;
+        Speaker5Ticks = (int) (freqToTicks(Freq)/2);
         break;
 #endif
 
 #ifdef Speaker6
     case Speaker6:
-        Speaker6Ticks = freqToTicks(Freq)/2;
+        Speaker6Ticks = (int) (freqToTicks(Freq)/2);
         break;
 #endif
     default:
         break;
-
-
     }
+
 }
 
 //ISR FLOW
