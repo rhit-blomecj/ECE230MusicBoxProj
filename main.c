@@ -113,10 +113,10 @@ void setSongCCRs(void){
       playFrequency(Tenor, activeSong.TenorNotes[currentTenorNote]);
       playFrequency(Bass, activeSong.BassNotes[currentBassNote]);
 
-      NoteDurationTimer->CCR[4] += (int) (onebeatticks*activeSong.SopranoDurations[currentSopranoNote]);
-      NoteDurationTimer->CCR[3] += (int) (onebeatticks*activeSong.AltoDurations[currentAltoNote]);
-      NoteDurationTimer->CCR[2] += (int) (onebeatticks*activeSong.TenorDurations[currentTenorNote]);
-      NoteDurationTimer->CCR[1] += (int) (onebeatticks*activeSong.BassDurations[currentBassNote]);
+      NoteDurationTimer->CCR[4] = (int) (onebeatticks*activeSong.SopranoDurations[currentSopranoNote]);
+      NoteDurationTimer->CCR[3] = (int) (onebeatticks*activeSong.AltoDurations[currentAltoNote]);
+      NoteDurationTimer->CCR[2] = (int) (onebeatticks*activeSong.TenorDurations[currentTenorNote]);
+      NoteDurationTimer->CCR[1] = (int) (onebeatticks*activeSong.BassDurations[currentBassNote]);
 }
 
 void main(void)
