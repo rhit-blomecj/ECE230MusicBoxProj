@@ -16,7 +16,7 @@ int currentAltoNote = 0;
 int currentTenorNote = 0;
 int currentBassNote = 0;
 
-Song* Songs;
+Song Songs[4];
 
 int activeSongIndex = 0;
 
@@ -103,15 +103,20 @@ void setBPM(void){
 }
 
 void setSongCCRs(void){
-      NoteDurationTimer->CCR[4] += (int) (onebeatticks*activeSong.SopranoDurations[currentSopranoNote]);
-      NoteDurationTimer->CCR[3] += (int) (onebeatticks*activeSong.AltoDurations[currentAltoNote]);
-      NoteDurationTimer->CCR[2] += (int) (onebeatticks*activeSong.TenorDurations[currentTenorNote]);
-      NoteDurationTimer->CCR[1] += (int) (onebeatticks*activeSong.BassDurations[currentBassNote]);
+    initSpeakerFreqTimer();
+        //Speaker Setup END
+
+        NoteDurationSetup();
 
       playFrequency(Soprano, activeSong.SopranoNotes[currentSopranoNote]);
       playFrequency(Alto, activeSong.AltoNotes[currentAltoNote]);
       playFrequency(Tenor, activeSong.TenorNotes[currentTenorNote]);
       playFrequency(Bass, activeSong.BassNotes[currentBassNote]);
+
+      NoteDurationTimer->CCR[4] += (int) (onebeatticks*activeSong.SopranoDurations[currentSopranoNote]);
+      NoteDurationTimer->CCR[3] += (int) (onebeatticks*activeSong.AltoDurations[currentAltoNote]);
+      NoteDurationTimer->CCR[2] += (int) (onebeatticks*activeSong.TenorDurations[currentTenorNote]);
+      NoteDurationTimer->CCR[1] += (int) (onebeatticks*activeSong.BassDurations[currentBassNote]);
 }
 
 void main(void)
@@ -145,7 +150,7 @@ void main(void)
 
 
     //need to do this to start the song
-    Songs = createSongsArray();
+	createSongsArray(Songs);
 
 
 

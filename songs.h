@@ -16,24 +16,24 @@ typedef struct _Song {
 
     int bpm;
 
-    float *SopranoNotes;
-    float *SopranoDurations;
+    const float *SopranoNotes;
+    const float *SopranoDurations;
 
-    float *AltoNotes;
-    float *AltoDurations;
+    const float *AltoNotes;
+    const float *AltoDurations;
 
-    float *TenorNotes;
-    float *TenorDurations;
+    const float *TenorNotes;
+    const float *TenorDurations;
 
-    float *BassNotes;
-    float *BassDurations;
+    const float *BassNotes;
+    const float *BassDurations;
 
 } Song;
 
 
 
 
-extern Song* createSongsArray(void);
+extern void createSongsArray(Song* Songs);
 
 
 #endif /* SONGS_H_ */

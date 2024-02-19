@@ -7,7 +7,7 @@
 
 #include "songs.h"
 
-float CarolSopranoNote[] = {
+const float CarolSopranoNote[] = {
                             AS4, A4, AS4, G4,
                             AS4, A4, AS4, G4,
                             AS4, A4, AS4, G4,
@@ -56,7 +56,7 @@ float CarolSopranoNote[] = {
                             D5, C5, D5, G4,
                             G4,
                             NULL};
-float CarolSopranoDur[] = {
+const float CarolSopranoDur[] = {
                            1, 0.5, 0.5, 1,
                            1, 0.5, 0.5, 1,
                            1, 0.5, 0.5, 1,
@@ -102,7 +102,7 @@ float CarolSopranoDur[] = {
                            1, 0.5, 0.5, 1,
                            3,
                            NULL};
-float CarolAltoNote[] = {
+const float CarolAltoNote[] = {
                          R,
                          R,
                          R,
@@ -151,7 +151,7 @@ float CarolAltoNote[] = {
                          AS4, A4, AS4, G4,
                          G4,
                          NULL};
-float CarolAltoDur[] = {
+const float CarolAltoDur[] = {
                         3,
                         3,
                         3,
@@ -201,7 +201,7 @@ float CarolAltoDur[] = {
                         3,
 
                         NULL};
-float CarolTenorNote[] = {R,
+const float CarolTenorNote[] = {R,
                           R,
                           R,
                           R,
@@ -249,7 +249,7 @@ float CarolTenorNote[] = {R,
                           R,
                           R,
                           NULL};
-float CarolTenorDur[] = {
+const float CarolTenorDur[] = {
                          3,
                          3,
                          3,
@@ -396,9 +396,13 @@ float CarolBassDur[] = {3,
                         3,
                         3,
                         NULL};
-Song CarolOfTheBells;
 
-float BelleSopranoNote[] ={
+
+
+
+const Song CarolOfTheBells = {"Carol Of The Bells", "M. Leontovich", 140, CarolSopranoNote, CarolSopranoDur, CarolAltoNote, CarolAltoDur, CarolTenorNote, CarolTenorDur, CarolBassNote, CarolBassDur};
+
+const float BelleSopranoNote[] ={
                         C4, C4, C4, C4, D4, D4, C4, B3, C4,
                         E4, E4, E4, E4, F4, E4, D4, G4, G4,
                         G4, G4, G4, G4, F4, F4, F4, F4, E4, E4, E4, E4, D4, D4, D4, D4,
@@ -413,7 +417,7 @@ float BelleSopranoNote[] ={
                         G4, G4, G4, G4, F4, F4, F4, F4, E4, E4, E4, E4, D4, D4, D4, D4,
                         C4, C4, C4, C4, D4, D4, C4, B3, C4,
                         NULL};
-float BelleSopranoDur[] ={
+const float BelleSopranoDur[] ={
                         0.5, 0.25, 0.5, 0.75, 0.5, 0.25, 0.5, 0.75, 4, //belle mama belle ma ma ey
                         0.5, 0.25, 0.5, 0.75, 0.5, 0.25, 0.5, 0.75, 4, //belle mama belle ma ma ey
                         0.5, 0.25, 0.5, 0.75, 0.5, 0.25, 0.5, 0.75, 0.5, 0.25, 0.5, 0.75, 0.5, 0.25, 0.5, 0.75, //belle mama, belle mama, belle mama, belle mama,
@@ -428,7 +432,7 @@ float BelleSopranoDur[] ={
                         0.5, 0.25, 0.5, 0.75, 0.5, 0.25, 0.5, 0.75, 0.5, 0.25, 0.5, 0.75, 0.5, 0.25, 0.5, 0.75,
                         0.5, 0.25, 0.5, 0.75, 0.5, 0.25, 0.5, 0.75, 4,
                         NULL};
-float BelleAltoNote[] ={
+const float BelleAltoNote[] ={
                         C4, C4, C4, C4, D4, D4, C4, B3, C4,
                         E4, E4, E4, E4, F4, E4, D4, G4, G4,
                         G4, G4, G4, G4, F4, F4, F4, F4, E4, E4, E4, E4, D4, D4, D4, D4,
@@ -442,7 +446,7 @@ float BelleAltoNote[] ={
                         R, R, R, R, R, R, R, R,
                         R, R, R, R, R, R, R, R,
                         NULL};
-float BelleAltoDur[] ={
+const float BelleAltoDur[] ={
                         0.5, 0.25, 0.5, 0.75, 0.5, 0.25, 0.5, 0.75, 4,
                         0.5, 0.25, 0.5, 0.75, 0.5, 0.25, 0.5, 0.75, 4,
                         0.5, 0.25, 0.5, 0.75, 0.5, 0.25, 0.5, 0.75, 0.5, 0.25, 0.5, 0.75, 0.5, 0.25, 0.5, 0.75,
@@ -456,7 +460,7 @@ float BelleAltoDur[] ={
                         1, 1, 1, 1, 1, 1, 1, 1,
                         1, 1, 1, 1, 1, 1, 1, 1,
                         NULL};
-float BelleTenorNote[] ={
+const float BelleTenorNote[] ={
                         C4, C4, C4, C4, D4, D4, C4, B3, C4,
                         E4, E4, E4, E4, F4, E4, D4, G4, G4,
                         G4, G4, G4, G4, F4, F4, F4, F4, E4, E4, E4, E4, D4, D4, D4, D4,
@@ -470,7 +474,7 @@ float BelleTenorNote[] ={
                         C4, C4, C4, C4, D4, D4, C4, B3, C4,
                         R, R, R, R, R, R, R, R,
                         NULL};
-float BelleTenorDur[] ={
+const float BelleTenorDur[] ={
                         0.5, 0.25, 0.5, 0.75, 0.5, 0.25, 0.5, 0.75, 4,
                         0.5, 0.25, 0.5, 0.75, 0.5, 0.25, 0.5, 0.75, 4,
                         0.5, 0.25, 0.5, 0.75, 0.5, 0.25, 0.5, 0.75, 0.5, 0.25, 0.5, 0.75, 0.5, 0.25, 0.5, 0.75,
@@ -484,7 +488,7 @@ float BelleTenorDur[] ={
                         0.5, 0.25, 0.5, 0.75, 0.5, 0.25, 0.5, 0.75, 4,
                         1, 1, 1, 1, 1, 1, 1, 1,
                         NULL};
-float BelleBassNote[] ={
+const float BelleBassNote[] ={
                         C4, C4, C4, C4, D4, D4, C4, B3, C4,
                         E4, E4, E4, E4, F4, E4, D4, G4, G4,
                         G4, G4, G4, G4, F4, F4, F4, F4, E4, E4, E4, E4, D4, D4, D4, D4,
@@ -498,7 +502,7 @@ float BelleBassNote[] ={
                         G4, G4, G4, G4, F4, F4, F4, F4, E4, E4, E4, E4, D4, D4, D4, D4,
                         C4, C4, C4, C4, D4, D4, C4, B3, C4,
                         NULL};
-float BelleBassDur[] ={
+const float BelleBassDur[] ={
                         0.5, 0.25, 0.5, 0.75, 0.5, 0.25, 0.5, 0.75, 4,
                         0.5, 0.25, 0.5, 0.75, 0.5, 0.25, 0.5, 0.75, 4,
                         0.5, 0.25, 0.5, 0.75, 0.5, 0.25, 0.5, 0.75, 0.5, 0.25, 0.5, 0.75, 0.5, 0.25, 0.5, 0.75,
@@ -512,9 +516,9 @@ float BelleBassDur[] ={
                         0.5, 0.25, 0.5, 0.75, 0.5, 0.25, 0.5, 0.75, 0.5, 0.25, 0.5, 0.75, 0.5, 0.25, 0.5, 0.75,
                         0.5, 0.25, 0.5, 0.75, 0.5, 0.25, 0.5, 0.75, 4,
                         NULL};
-Song BelleMama;
+const Song BelleMama = {"Belle Mama", "Think Cre8tive", 70, BelleSopranoNote, BelleSopranoDur, BelleAltoNote, BelleAltoDur, BelleTenorNote, BelleTenorDur, BelleBassNote, BelleBassDur};
 
-float ImperialMarchSopranoNote[] ={
+const float ImperialMarchSopranoNote[] ={
 R,
 R,
 G4, G4, G4, DS4, C5,
@@ -548,7 +552,7 @@ D5, R, AS4, AS4, AS4, AS4, D5, D5, D5, D5, D5, D5, D5, D5,
 G4, G4, G4 , G4, E4, E4, E4, AS4, G4, G4, G4 , G4, E4, E4, E4, AS4, 
 G4, G4, G4, G4, DS4, DS4, DS4, AS4, G4, G3, G3, G3, G3, R,
 NULL};
-float ImperialMarchSopranoDur[] ={
+const float ImperialMarchSopranoDur[] ={
 4,
 4,
 1, 1, 1, .75, .25,
@@ -583,7 +587,7 @@ float ImperialMarchSopranoDur[] ={
 .5, 0.1666, 0.1666 , 0.1666, 0.1666, 0.1666, 0.1666, .5, .5, 0.1666, 0.1666 , 0.1666, 0.1666, 0.1666, 0.1666, .5, 
 .5, 0.1666, 0.1666, 0.1666, 0.1666, 0.1666, 0.1666, .5, .5, 0.1666, 0.1666, 0.1666, .5, .5,
 NULL};
-float ImperialMarchAltoNote[] ={
+const float ImperialMarchAltoNote[] ={
 G3, R, G3, G3, G3, G3, G3, G3, G3, G3, AS3, AS3, AS3, AS3, 
 G3, R, G3, G3, G3, G3, G3, G3, G3, G3, AS3, AS3, AS3, AS3, 
 G3, R, G3, G3, G3, G3, G3, G3, G3, G3, AS3, AS3, AS3, AS3, 
@@ -618,7 +622,7 @@ AS4, R, G4, G4, G4, G4, AS4, AS4, AS4, AS4, AS4, AS4, AS4, AS4,
 G3, G3, G3, G3, G3, G3, G3, G3, G3, G3, G3, G3, G3, G3, G3, G3, 
 G3, G3, G3, G3, G3, G3, G3, G3, G3, G3, G3, G3, G3, R, 
 NULL};
-float ImperialMarchAltoDur[] ={
+const float ImperialMarchAltoDur[] ={
 .5, .5, .5, 0.1666, 0.1666, 0.1666, .5, 0.1666, 0.1666, 0.1666, 0.1666, 0.1666, 0.1666, .5, 
 .5, .5, .5, 0.1666, 0.1666, 0.1666, .5, 0.1666, 0.1666, 0.1666, 0.1666, 0.1666, 0.1666, .5, 
 .5, .5, .5, 0.1666, 0.1666, 0.1666, .5, 0.1666, 0.1666, 0.1666, 0.1666, 0.1666, 0.1666, .5, 
@@ -653,7 +657,7 @@ float ImperialMarchAltoDur[] ={
 .5, 0.1666, 0.1666, 0.1666, 0.1666, 0.1666, 0.1666, .5, .5, 0.1666, 0.1666, 0.1666, 0.1666, 0.1666, 0.1666, .5, 
 .5, 0.1666, 0.1666, 0.1666, 0.1666, 0.1666, 0.1666, .5, .5, 0.1666, 0.1666, 0.1666, .5, .5, 
 NULL};
-float ImperialMarchTenorNote[] ={
+const float ImperialMarchTenorNote[] ={
 G3, R, G3, G3, G3, G3, G3, G3, G3, G3, G3, G3, G3, G3, 
 G3, R, G3, G3, G3, G3, G3, G3, G3, G3, G3, G3, G3, G3, 
 G3, R, G3, G3, G3, G3, G3, G3, G3, G3, G3, G3, G3, G3, 
@@ -688,7 +692,7 @@ G3, R, DS3, DS3, DS3, DS3, G3, G3, G3, G3, G3, G3, G3, G3,
 G3, G3, G3, G3, G3, G3, G3, G3, G3, G3, G3, G3, G3, G3, G3, G3, 
 G3, G3, G3, G3, G3, G3, G3, G3, G3, G3, G3, G3, G3, R, 
 NULL};
-float ImperialMarchTenorDur[] ={
+const float ImperialMarchTenorDur[] ={
 .5, .5, .5, .1666, .1666, .1666, .5, .1666, .1666, .1666, .1666, .1666, .1666, .5, 
 .5, .5, .5, .1666, .1666, .1666, .5, .1666, .1666, .1666, .1666, .1666, .1666, .5, 
 .5, .5, .5, .1666, .1666, .1666, .5, .1666, .1666, .1666, .1666, .1666, .1666, .5, 
@@ -723,7 +727,7 @@ float ImperialMarchTenorDur[] ={
 .5, 0.1666, 0.1666, 0.1666, 0.1666, 0.1666, 0.1666, .5, .5, 0.1666, 0.1666, 0.1666, 0.1666, 0.1666, 0.1666, .5, 
 .5, 0.1666, 0.1666, 0.1666, 0.1666, 0.1666, 0.1666, .5, .5, 0.1666, 0.1666, 0.1666, .5, .5, 
 NULL};
-float ImperialMarchBassNote[] ={
+const float ImperialMarchBassNote[] ={
 G2, R, G2, G2, G2, G2, G2, G2, G2, G2, DS2, DS2, DS2, DS2, 
 G2, R, G2, G2, G2, G2, G2, G2, G2, G2, DS2, DS2, DS2, DS2, 
 G2, R, G2, G2, G2, G2, G2, G2, G2, G2, DS2, DS2, DS2, DS2, 
@@ -758,7 +762,7 @@ G2, DS2, AS2, G2,
 G2, G2, G2, G2, DS2, DS2, DS2, AS2, G2, G2, G2, G2, DS2, DS2, DS2, AS2, 
 G2, G2, G2, G2, DS2, DS2, DS2, AS2, G2, G2, G2, G2, G2, R, 
 NULL};
-float ImperialMarchBassDur[] ={
+const float ImperialMarchBassDur[] ={
 .5, .5, .5, 0.1666, 0.1666, 0.1666, .5, 0.1666, 0.1666, 0.1666, 0.1666, 0.1666, 0.1666, .5, 
 .5, .5, .5, 0.1666, 0.1666, 0.1666, .5, 0.1666, 0.1666, 0.1666, 0.1666, 0.1666, 0.1666, .5, 
 .5, .5, .5, 0.1666, 0.1666, 0.1666, .5, 0.1666, 0.1666, 0.1666, 0.1666, 0.1666, 0.1666, .5, 
@@ -793,48 +797,58 @@ float ImperialMarchBassDur[] ={
 .5, 0.1666, 0.1666, 0.1666, 0.1666, 0.1666, 0.1666, .5, .5, 0.1666, 0.1666, 0.1666, 0.1666, 0.1666, 0.1666, .5, 
 .5, 0.1666, 0.1666, 0.1666, 0.1666, 0.1666, 0.1666, .5, .5, 0.1666, 0.1666, 0.1666, .5, .5, 
 NULL};
-Song ImperialMarch;
 
-Song NULLSONG ={NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL} ;
-
-Song* createSongsArray(void){
-    CarolOfTheBells.Title = "Carol Of The Bells";
-    CarolOfTheBells.Artist = "M. Leontovich";
-    CarolOfTheBells.bpm =  140;
-    CarolOfTheBells.SopranoNotes = CarolSopranoNote;
-    CarolOfTheBells.SopranoDurations = CarolSopranoDur;
-    CarolOfTheBells.AltoNotes = CarolAltoNote;
-    CarolOfTheBells.AltoDurations =  CarolAltoDur;
-    CarolOfTheBells.TenorNotes = CarolTenorNote;
-    CarolOfTheBells.TenorDurations = CarolTenorDur;
-    CarolOfTheBells.BassNotes = CarolBassNote;
-    CarolOfTheBells.BassDurations = CarolBassDur;
-
-    BelleMama.Title = "Belle Mama";
-    BelleMama.Artist = "Think Cre8tive";
-    BelleMama.bpm =  70;
-    BelleMama.SopranoNotes = BelleSopranoNote;
-    BelleMama.SopranoDurations = BelleSopranoDur;
-    BelleMama.AltoNotes = BelleAltoNote;
-    BelleMama.AltoDurations =  BelleAltoDur;
-    BelleMama.TenorNotes = BelleTenorNote;
-    BelleMama.TenorDurations = BelleTenorDur;
-    BelleMama.BassNotes = BelleBassNote;
-    BelleMama.BassDurations = BelleBassDur;
-
-    ImperialMarch.Title = "Imperial March";
-    ImperialMarch.Artist = "John Williams & Rodrigo Prado";
-    ImperialMarch.bpm =  103;
-    ImperialMarch.SopranoNotes = ImperialMarchSopranoNote;
-    ImperialMarch.SopranoDurations = ImperialMarchSopranoDur;
-    ImperialMarch.AltoNotes = ImperialMarchAltoNote;
-    ImperialMarch.AltoDurations =  ImperialMarchAltoDur;
-    ImperialMarch.TenorNotes = ImperialMarchTenorNote;
-    ImperialMarch.TenorDurations = ImperialMarchTenorDur;
-    ImperialMarch.BassNotes = ImperialMarchBassNote;
-    ImperialMarch.BassDurations = ImperialMarchBassDur;
+const Song ImperialMarch = {"Imperial March", "John Williams & Rodrigo Prado", 103, ImperialMarchSopranoNote, ImperialMarchSopranoDur, ImperialMarchAltoNote, ImperialMarchAltoDur, ImperialMarchTenorNote, ImperialMarchTenorDur, ImperialMarchBassNote, ImperialMarchBassDur};
 
 
-    Song Songs[] = {BelleMama, ImperialMarch, CarolOfTheBells, NULLSONG};//TO DETECT NULLSONG just check if (Title == NULL)
-    return Songs;
+
+
+const Song NULLSONG ={NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL} ;
+
+
+// const Song Songs_ [] = {BelleMama, ImperialMarch, CarolOfTheBells, NULLSONG};
+
+void createSongsArray(Song* Songs){
+//    CarolOfTheBells.Title = "Carol Of The Bells";
+//    CarolOfTheBells.Artist = "M. Leontovich";
+//    CarolOfTheBells.bpm =  140;
+//    CarolOfTheBells.SopranoNotes = CarolSopranoNote;
+//    CarolOfTheBells.SopranoDurations = CarolSopranoDur;
+//    CarolOfTheBells.AltoNotes = CarolAltoNote;
+//    CarolOfTheBells.AltoDurations =  CarolAltoDur;
+//    CarolOfTheBells.TenorNotes = CarolTenorNote;
+//    CarolOfTheBells.TenorDurations = CarolTenorDur;
+//    CarolOfTheBells.BassNotes = CarolBassNote;
+//    CarolOfTheBells.BassDurations = CarolBassDur;
+
+//    BelleMama.Title = "Belle Mama";
+//    BelleMama.Artist = "Think Cre8tive";
+//    BelleMama.bpm =  70;
+//    BelleMama.SopranoNotes = BelleSopranoNote;
+//    BelleMama.SopranoDurations = BelleSopranoDur;
+//    BelleMama.AltoNotes = BelleAltoNote;
+//    BelleMama.AltoDurations =  BelleAltoDur;
+//    BelleMama.TenorNotes = BelleTenorNote;
+//    BelleMama.TenorDurations = BelleTenorDur;
+//    BelleMama.BassNotes = BelleBassNote;
+//    BelleMama.BassDurations = BelleBassDur;
+
+//    ImperialMarch.Title = "Imperial March";
+//    ImperialMarch.Artist = "John Williams & Rodrigo Prado";
+//    ImperialMarch.bpm =  103;
+//    ImperialMarch.SopranoNotes = ImperialMarchSopranoNote;
+//    ImperialMarch.SopranoDurations = ImperialMarchSopranoDur;
+//    ImperialMarch.AltoNotes = ImperialMarchAltoNote;
+//    ImperialMarch.AltoDurations =  ImperialMarchAltoDur;
+//    ImperialMarch.TenorNotes = ImperialMarchTenorNote;
+//    ImperialMarch.TenorDurations = ImperialMarchTenorDur;
+//    ImperialMarch.BassNotes = ImperialMarchBassNote;
+//    ImperialMarch.BassDurations = ImperialMarchBassDur;
+
+   Songs[0] = BelleMama;
+   Songs[1] = ImperialMarch;
+   Songs[2] = CarolOfTheBells;
+   Songs[3] = NULLSONG;
+
+    //TO DETECT NULLSONG just check if (Title == NULL)
 }
