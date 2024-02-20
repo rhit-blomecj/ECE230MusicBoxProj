@@ -52,7 +52,7 @@
 
 //For magnet switch we want to use P1.5
 #define MagnetSwitchPort P1
-#define MagnetSwitchPin 1<<5
+#define MagnetSwitchPin 1<<1
 
 
 #endif /* GLOBAL_H_ */

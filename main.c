@@ -6,7 +6,7 @@
  */
 #include "main.h"
 
-int bpm = 0;
+
 int onebeatticks = 0;
 
 SwitchState Switch1State = Pressed;
@@ -100,10 +100,10 @@ void displaySongAndArtistName(void){
 }
 
 void setBPM(void){
-    bpm = activeSong.bpm;//bpm->rpm 240=12 40 =2 so bpm/20 = rpm of stepperMotor
-    onebeatticks = (int)((60.0/(float)bpm)*(float)NoteDurationTimerFreq);
+    //bpm->rpm 240=12 40 =2 so bpm/20 = rpm of stepperMotor
+    onebeatticks = (int)((60.0/(float)activeSong.bpm)*(float)NoteDurationTimerFreq);
 
-    setRPM(((float)bpm/(float)bpmTorpmConst), Stepper1);
+    setRPM(((float)activeSong.bpm/(float)bpmTorpmConst), Stepper1);
 }
 
 void setSongCCRs(void){
@@ -113,10 +113,10 @@ void setSongCCRs(void){
       playFrequency(Tenor, activeSong.TenorNotes[currentTenorNote]);
       playFrequency(Bass, activeSong.BassNotes[currentBassNote]);
 
-      NoteDurationTimer->CCR[4] = (int) (onebeatticks*activeSong.SopranoDurations[currentSopranoNote]);
-      NoteDurationTimer->CCR[3] = (int) (onebeatticks*activeSong.AltoDurations[currentAltoNote]);
-      NoteDurationTimer->CCR[2] = (int) (onebeatticks*activeSong.TenorDurations[currentTenorNote]);
-      NoteDurationTimer->CCR[1] = (int) (onebeatticks*activeSong.BassDurations[currentBassNote]);
+      NoteDurationTimer->CCR[4] += (int) (onebeatticks*activeSong.SopranoDurations[currentSopranoNote]);
+      NoteDurationTimer->CCR[3] += (int) (onebeatticks*activeSong.AltoDurations[currentAltoNote]);
+      NoteDurationTimer->CCR[2] += (int) (onebeatticks*activeSong.TenorDurations[currentTenorNote]);
+      NoteDurationTimer->CCR[1] += (int) (onebeatticks*activeSong.BassDurations[currentBassNote]);
 }
 
 void main(void)
