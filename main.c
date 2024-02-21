@@ -28,26 +28,7 @@ char insert_rest_tenor = 1;
 char insert_rest_bass = 1;
 
 
-//Might use as a verification song to test durations, rest inserts, and frequency of note
-//float activeSopranoNotes[] = {C4,
-//                              NULL};
-//float activeSopranoDurations[] = {1,
-//                                  NULL};
-//
-//float activeAltoNotes[] = {E4,
-//                           NULL};
-//float activeAltoDurations[] = {1,
-//                               NULL};
-//
-//float activeTenorNotes[] = {G4,
-//                            NULL};
-//float activeTenorDurations[] = {1,
-//                                NULL};
-//
-//float activeBassNotes[] = {B4,
-//                           NULL};
-//float activeBassDurations[] = {1,
-//                               NULL};
+
 
 
 void SongPause(void){

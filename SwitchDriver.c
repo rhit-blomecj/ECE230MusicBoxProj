@@ -23,8 +23,8 @@ void SwitchInit(DIO_PORT_Odd_Interruptable_Type* port, char PinBitmask){
     port->SEL1 &= ~PinBitmask;
     port->DIR &= ~PinBitmask;
 
-    port->REN |= PinBitmask;//pullup resistor so when not pressed its high
-//    port->OUT |= PinBitmask; we are doing an external pullup resistor and will see what happens
+//    port->REN |= PinBitmask;//pullup resistor so when not pressed its high
+//    port->OUT |= PinBitmask; //we are doing an external pullup resistor and will see what happens
 
 }
 

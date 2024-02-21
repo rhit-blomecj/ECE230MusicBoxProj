@@ -7,7 +7,7 @@
 #include "verification.h"
 
 void initVerificationLEDs(void){
-    verificationLEDPort->DIR &= ~(RED_PIN | GREEN_PIN | BLUE_PIN);
+    verificationLEDPort->DIR |= (RED_PIN | GREEN_PIN | BLUE_PIN);
     verificationLEDPort->SEL0 &= ~(RED_PIN | GREEN_PIN | BLUE_PIN);
     verificationLEDPort->SEL1 &= ~(RED_PIN | GREEN_PIN | BLUE_PIN);
     verificationLEDPort->OUT &= ~(RED_PIN | GREEN_PIN | BLUE_PIN);//start low
